@@ -11,25 +11,20 @@
  */
 public class Solution {
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
-        Stack<ListNode> s1=new Stack<>(); 
-        Stack<ListNode> s2=new Stack<>(); 
         ListNode temp1=headA;
         ListNode temp2=headB;
-        while(temp1!=null){
-            s1.push(temp1);
-            temp1=temp1.next;
+        while(temp1!=temp2){
+            if(temp1==null){
+                temp1=headB;
+            }else{
+                temp1=temp1.next;
+            }
+            if(temp2==null){
+                temp2=headA;
+            }else{
+                temp2=temp2.next;
+            }
         }
-        while(temp2!=null){
-            s2.push(temp2);
-            temp2=temp2.next;
-        }
-        ListNode check=null;
-        while(!s1.isEmpty() && !s2.isEmpty()){
-            ListNode check1=s1.pop();
-            ListNode check2=s2.pop();
-            if(check1==check2)  check=check1;
-            else    break;
-        }
-        return check;
+        return temp1;
     }
 }
