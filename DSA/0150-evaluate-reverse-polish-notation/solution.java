@@ -6,25 +6,25 @@ class Solution {
         for (String s : tokens) {
             switch (s) {
                 case "+":
-                        temp = a[top - 1] + a[top];
+                        temp = a[top-1] + a[top];
                         a[--top] = temp;
                         break;
                 case "-":
-                        temp = a[top - 1] - a[top];
+                        temp = a[top-1] - a[top];
                         a[--top] = temp;
                         break;
                 case "*":
-                        temp = a[top - 1] * a[top];
-                        a[--top] = temp;
-                         break;
-                case "/":
-                        temp = a[top - 1] / a[top];
+                        temp = a[top-1] * a[top];
                         a[--top] = temp;
                         break;
-                default:    
+                case "/":
+                        temp = a[top-1] / a[top];
+                        a[--top] = temp;
+                        break;
+                default :
                         a[++top] = Integer.valueOf(s);
             }
         }
-        return a[0];
+        return a[top];
     }
 }
