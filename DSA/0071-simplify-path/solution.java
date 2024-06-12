@@ -1,20 +1,17 @@
 class Solution {
-    public static String simplifyPath(String path) {
-        Stack<String> stack = new Stack<>();
-        for (String dir : path.split("/")) {
-            if (dir.equals("..")) {
-                if (!stack.isEmpty()) {
-                    stack.pop();
-                }
-                } else {
-                    if (!dir.equals("") && !dir.equals(".")) {
-                        stack.push(dir);
-                    }
-                }
-
+    public String simplifyPath(String path) {
+        Deque<String> dirOrFiles = new ArrayDeque<>();
+        for (String dirOrFile : path.split("/")) {
+            if (!dirOrFiles.isEmpty() && dirOrFile.equals("..")) {
+                dirOrFiles.removeLast();
+            } else if (!dirOrFile.equals(".") && !dirOrFile.equals("") && !dirOrFile.equals("..")) {
+                dirOrFiles.addLast(dirOrFile);
+            }
         }
-        return "/" + String.join("/", stack);
-
+        StringBuilder simplified_path = new StringBuilder();
+        for (String dirOrFile : dirOrFiles) {
+            simplified_path.append("/").append(dirOrFile);
+        }
+        return simplified_path.length() == 0 ? "/" : simplified_path.toString();
     }
-
 }
