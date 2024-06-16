@@ -10,23 +10,19 @@
  */
 class Solution {
     public ListNode removeNthFromEnd(ListNode head, int n) {
-        // always deletion operation create a dummy node.
-        // incase of delete head itself it does not create any problem.
-        ListNode dummy = new ListNode(0);
-        dummy.next=head;
-        ListNode first=dummy;
-        ListNode second=dummy;
-        // maintain prev node and gap to delete node
-        for(int i=0;i<n;i++){
-            second = second.next;
+        // if (head == null || head.next == null)  return null;
+        ListNode dummy = new ListNode(-1);
+        dummy.next = head;
+        ListNode slow = dummy;
+        ListNode fast = dummy;
+        for (int i = 1; i <= n; i++) {
+            fast = fast.next;
         }
-        while(second.next!=null){
-            first=first.next;
-            second=second.next;
+        while (fast.next != null) {
+            slow = slow.next;
+            fast = fast.next;
         }
-        // change the prev node address
-        first.next=first.next.next;
+        slow.next = slow.next.next;
         return dummy.next;
-
     }
 }
