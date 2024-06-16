@@ -16,18 +16,17 @@ class Solution {
         for (int i = 1; i < left; i++) {
             temp = temp.next;
         }
-        ListNode current = temp.next;
-        ListNode leftNode = current;
+        ListNode l = temp.next;
         ListNode prev = null;
-        for (int i = 0; i <= (right - left); i++) {
-            ListNode nextNode = current.next;
-            current.next = prev;
-            prev = current;
-            current = nextNode;
+        ListNode curr = l;
+        for (int i = 1; i <= (right - left + 1); i++) {
+            ListNode nextNode = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = nextNode;
         }
         temp.next = prev;
-        leftNode.next = current;
+        l.next = curr;
         return dummy.next;
-
     }
 }
