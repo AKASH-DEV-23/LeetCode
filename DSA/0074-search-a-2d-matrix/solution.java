@@ -1,10 +1,9 @@
 class Solution {
     public boolean searchMatrix(int[][] matrix, int target) {
-        for(int n[]: matrix){
-            for(int m:n){
-                if(m==target){
+        for (int arr[] : matrix) {
+            for (int n : arr) {
+                if (target == n)
                     return true;
-                }
             }
         }
         return false;
