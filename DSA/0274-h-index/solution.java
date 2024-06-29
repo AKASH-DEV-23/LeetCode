@@ -1,5 +1,5 @@
 class Solution {
-    public int hIndex(int[] citations) {
+    public static int hIndex(int[] citations) {
         int n = citations.length;
         int[] arr = new int[n + 1];
         for (int c : citations) {
@@ -9,13 +9,14 @@ class Solution {
                 arr[c]++;
             }
         }
-        int count = 0;
+        int sum = 0;
         for (int i = n; i >= 0; i--) {
-            count += arr[i];
-            if (count >= i) {
+            sum += arr[i];
+            if (sum >= i) {
                 return i;
             }
         }
         return -1;
+
     }
 }
