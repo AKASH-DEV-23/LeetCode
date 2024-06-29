@@ -1,5 +1,7 @@
 class Solution {
-    public int majorityElement(int[] nums) {
+    
+    
+    public static int majorityElement(int[] nums) {
         int candi = 0;
         int point = 0;
         for (int n : nums) {
@@ -8,8 +10,9 @@ class Solution {
                 point++;
             } else if (candi == n) {
                 point++;
-            } else
+            } else {
                 point--;
+            }
         }
         return candi;
     }
