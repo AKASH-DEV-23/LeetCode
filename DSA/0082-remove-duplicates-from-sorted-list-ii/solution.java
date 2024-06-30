@@ -9,7 +9,8 @@
  * }
  */
 class Solution {
-    public ListNode deleteDuplicates(ListNode head) {
+    
+        public ListNode deleteDuplicates(ListNode head) {
         ListNode dummy = new ListNode(-1);
         dummy.next = head;
         ListNode slow = dummy;
@@ -22,6 +23,7 @@ class Solution {
             if (slow.next != fast) {
                 slow.next = fast.next;
                 fast = slow.next;
+                slow.next = fast;
             } else {
                 slow = slow.next;
                 fast = fast.next;
@@ -29,4 +31,5 @@ class Solution {
         }
         return dummy.next;
     }
+
 }
