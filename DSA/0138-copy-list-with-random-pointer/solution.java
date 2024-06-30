@@ -1,46 +1,43 @@
-/*
-// Definition for a Node.
-class Node {
-    int val;
-    Node next;
-    Node random;
+// class Node {
+//     int val;
+//     Node next;
+//     Node random;
 
-    public Node(int val) {
-        this.val = val;
-        this.next = null;
-        this.random = null;
-    }
-}
-*/
+//     public Node(int val) {
+//         this.val = val;
+//         this.next = null;
+//         this.random = null;
+//     } }
 
 class Solution {
+    
     public Node copyRandomList(Node head) {
-        if (head == null)
+        if (head == null) {
             return null;
-        Node temp = head;
-        while (temp != null) {
-            Node newNode = new Node(temp.val);
-            newNode.next = temp.next;
-            temp.next = newNode;
-            temp = newNode.next;
         }
-        temp = head;
-        while (temp != null) {
-            if (temp.random != null)
-                temp.next.random = temp.random.next;
-            temp = temp.next.next;
+        Node current = head;
+        while (current != null) {
+            Node copy = new Node(current.val);
+            copy.next = current.next;
+            current.next = copy;
+            current = current.next.next;
         }
-        temp = head;
-        Node newHead = head.next;
-        Node newTemp = head.next;
-        while (temp != null) {
-            temp.next = newTemp.next;
-            temp = temp.next;
-            if (temp != null) {
-                newTemp.next = temp.next;
-                newTemp = newTemp.next;
+        current = head;
+        while (current != null) {
+            if (current.random != null) {
+                current.next.random = current.random.next;
             }
+            current = current.next.next;
         }
-        return newHead;
+        Node dummy = new Node(-1);
+        Node copy = dummy;
+        current = head;
+        while (current != null) {
+            copy.next = current.next;
+            copy = copy.next;
+            current.next = current.next.next;
+            current = current.next;
+        }
+        return dummy.next;
     }
 }
