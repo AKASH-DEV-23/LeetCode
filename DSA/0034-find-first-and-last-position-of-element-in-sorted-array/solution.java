@@ -1,43 +1,30 @@
 class Solution {
-    private int leftSearch(int[] nums, int target) {
-        int low = 0;
-        int high = nums.length - 1;
-        int leftMost = -1;
-        while (low <= high) {
-            int mid = (low + high) / 2;
+        public static int[] searchRange(int[] nums, int target) {
+        int[] result = new int[] { -1, -1 };
+        int start = 0;
+        int end = nums.length - 1;
+        while (start <= end) {
+            int mid = (start + end) / 2;
             if (target == nums[mid]) {
-                leftMost = mid;
-                high = mid - 1;
-            } else if (target < nums[mid]) {
-                high = mid - 1;
+                start = mid;
+                end = mid;
+                while (start > 0 && nums[start - 1] == target) {
+                    start--;
+                }
+                while (end < nums.length - 1 && nums[end + 1] == target) {
+                    end++;
+                }
+                result[0] = start;
+                result[1] = end;
+                return result;
+            }
+            if (target < nums[mid]) {
+                end = mid - 1;
             } else {
-                low = mid + 1;
+                start = mid + 1;
             }
         }
-        return leftMost;
+        return result;
     }
 
-    private int rightSearch(int[] nums, int target) {
-        int low = 0;
-        int high = nums.length - 1;
-        int rightMost = -1;
-        while (low <= high) {
-            int mid = (low + high) / 2;
-            if (target == nums[mid]) {
-                rightMost = mid;
-                low = mid + 1;
-            } else if (target < nums[mid]) {
-                high = mid - 1;
-            } else {
-                low = mid + 1;
-            }
-        }
-        return rightMost;
-    }
-
-    public int[] searchRange(int[] nums, int target) {
-        int l = leftSearch(nums, target);
-        int r = rightSearch(nums, target);
-        return new int[] { l, r };
-    }
 }
