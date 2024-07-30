@@ -1,14 +1,14 @@
 class Solution {
-    public static boolean isAnagram(String s, String t) {
-        int count[] = new int[26];
-        for (char c : s.toCharArray()) {
+    public boolean isAnagram(String s, String t) {
+        int[] count = new int[26];
+        for(char c : s.toCharArray()){
             count[c - 'a']++;
         }
-        for (char c : t.toCharArray()) {
+        for(char c : t.toCharArray()){
             count[c - 'a']--;
         }
-        for (int c : count) {
-            if (c > 0 || c < 0) {
+        for(int c : count){
+            if(c != 0){
                 return false;
             }
         }
