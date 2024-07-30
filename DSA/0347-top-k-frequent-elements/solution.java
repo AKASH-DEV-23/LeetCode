@@ -1,31 +1,26 @@
 class Solution {
-    public int[] topKFrequent(int[] nums, int k) {
-        Map<Integer, Integer> count = new HashMap<>();
-        List<Integer>[] freq = new List[nums.length + 1];
-
-        for (int i = 0; i < freq.length; i++) {
-            freq[i] = new ArrayList<>();
+public static int[] topKFrequent(int[] nums, int k) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int num : nums) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
         }
-
-        for (int n : nums) {
-            count.put(n, count.getOrDefault(n, 0) + 1);
+        List<Integer>[] bucket = new List[nums.length + 1];
+        for (int key : map.keySet()) {
+            int freq = map.get(key);
+            if (bucket[freq] == null) {
+                bucket[freq] = new ArrayList<>();
+            }
+            bucket[freq].add(key);
         }
-
-        for (Map.Entry<Integer, Integer> entry : count.entrySet()) {
-            freq[entry.getValue()].add(entry.getKey());
-        }
-
-        int[] res = new int[k];
-        int index = 0;
-        for (int i = freq.length - 1; i > 0 && index < k; i--) {
-            for (int n : freq[i]) {
-                res[index++] = n;
-                if (index == k) {
-                    return res;
+        int[] ans = new int[k];
+        int idx = 0;
+        for (int i = bucket.length - 1; i >= 0 && idx < k; i--) {
+            if (bucket[i] != null) {
+                for (int num : bucket[i]) {
+                    ans[idx++] = num;
                 }
             }
         }
-        return res;
+        return ans;
     }
 }
-
