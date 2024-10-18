@@ -1,6 +1,4 @@
 class Solution {
-    
-    
     public static int majorityElement(int[] nums) {
         int candi = 0;
         int point = 0;
