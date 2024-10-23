@@ -1,11 +1,14 @@
 class Solution {
     public boolean isPalindrome(int x) {
-        if(x<0) return false;
-        StringBuilder sb=new StringBuilder();
-        String s=x+"";
-        sb.append(s);
-        sb.reverse();
-        // System.out.println(sb+" "+s);
-       return  Long.parseLong(s)==Long.parseLong(sb.toString());
+        if(x<0){
+            return false;
+        }
+        int reverse = 0;
+        int xcopy = x;
+        while(x>0){
+            reverse = (reverse*10)+(x%10);
+            x/=10;
+        }
+        return xcopy==reverse;
     }
 }
