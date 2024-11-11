@@ -1,17 +1,18 @@
 class Solution {
-    public static int majorityElement(int[] nums) {
-        int candi = 0;
-        int point = 0;
-        for (int n : nums) {
-            if (point == 0) {
-                candi = n;
-                point++;
-            } else if (candi == n) {
-                point++;
-            } else {
-                point--;
+    public int majorityElement(int[] nums) {
+        int maxPoint=0;
+        int newCandi=Integer.MIN_VALUE;
+        for(int num: nums){
+            if(maxPoint==0){
+                newCandi=num;
+                maxPoint++;
+            }
+            else if(newCandi==num){
+                maxPoint++;
+            } else{
+                maxPoint--;
             }
         }
-        return candi;
+        return newCandi;
     }
 }
