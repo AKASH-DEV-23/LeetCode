@@ -12,10 +12,10 @@ class MyQueue {
     
     public int pop() {
         if(st2.isEmpty()){
-        while(!st1.isEmpty()){
-            int num=st1.pop();
-            st2.push(num);
-        }
+            while(!st1.isEmpty()){
+                int num=st1.pop();
+                st2.push(num);
+            }
         }
         return st2.pop();
     }
