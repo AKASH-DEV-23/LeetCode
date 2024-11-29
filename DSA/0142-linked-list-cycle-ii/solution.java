@@ -26,11 +26,14 @@ public class Solution {
         if(slow!=fast){
             return null;
         }
-        ListNode temp=head;
-        while(temp!=slow){
-            temp=temp.next;
+        fast=head;
+        while(slow!=fast){
             slow=slow.next;
+            fast=fast.next;
         }
+        // if(slow==fast){
+        //     return fast;
+        // }
         return slow;
     }
 }
