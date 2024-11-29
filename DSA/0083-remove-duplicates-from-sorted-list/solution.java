@@ -9,15 +9,21 @@
  * }
  */
 class Solution {
-   public ListNode deleteDuplicates(ListNode head) {
-        ListNode temp = head;
-        while (temp != null && temp.next != null) {
-            if (temp.val == temp.next.val) {
-                temp.next = temp.next.next;
-            } else {
-                temp = temp.next;
+    public ListNode deleteDuplicates(ListNode head) {
+        ListNode dummy=new ListNode(-11111);
+        dummy.next=head;
+        ListNode fast=head;
+        ListNode slow=dummy;
+        while(fast!=null && fast !=null){
+            while(fast !=null && fast.val==slow.val){
+                fast=fast.next;
             }
+            slow.next=fast;
+            slow=fast;
         }
-        return head;
+        if(fast !=null && fast.val==slow.val){
+            slow.next=fast.next;
+        }
+        return dummy.next;
     }
 }
