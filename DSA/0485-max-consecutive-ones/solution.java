@@ -5,7 +5,7 @@ class Solution {
         for(int num:nums){
             if(num==1){
                 cnt++;
-                max=Math.max(cnt,max);
+                if(cnt>max) max=cnt;
             }else{
                 cnt=0;
             }
