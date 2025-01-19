@@ -12,11 +12,11 @@ class MyStack {
     }
     
     public int pop() {
-      return  q.poll();
+        return q.poll();
     }
     
     public int top() {
-      return  q.peek();
+        return q.peek();
     }
     
     public boolean empty() {
