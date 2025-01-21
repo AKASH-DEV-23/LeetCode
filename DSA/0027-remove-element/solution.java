@@ -8,5 +8,7 @@ public static int removeElement(int[] nums, int val) {
             }
         }
         return count;
+
+        
     }
 }
