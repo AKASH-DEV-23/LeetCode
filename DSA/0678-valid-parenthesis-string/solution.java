@@ -1,22 +1,21 @@
 class Solution {
     public boolean checkValidString(String s) {
-        return findString(s,0,0);
-    }
-    Map<String,Boolean> memo=new HashMap<>();
-    private boolean findString(String s, int idx, int open){
-        String str=idx+","+open;
-        if(memo.containsKey(str))    return memo.get(str);
-        boolean result;
-        if(idx==s.length())   return open==0;
-        if(open<0)  return false;
-        if(s.charAt(idx)=='(') result = findString(s,idx+1,open+1);
-        else if(s.charAt(idx)==')') result =  findString(s,idx+1,open-1);
-        else{
-            result = findString(s,idx+1,open+1) ||
-                    findString(s,idx+1,open-1) ||
-                    findString(s,idx+1,open);
+        int min=0;
+        int max=0;
+        for(char ch : s.toCharArray()){
+            if(ch=='('){
+                min+=1;
+                max+=1;
+            }else if(ch==')'){
+                min-=1;
+                max-=1;
+            }else{
+                min-=1;
+                max+=1;
+            }
+            if(min<0)   min=0;
+            if(max<0)   return false;
         }
-        memo.put(str,result);
-        return result;
+        return min==0;
     }
 }
