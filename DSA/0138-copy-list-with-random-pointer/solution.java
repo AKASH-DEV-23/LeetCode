@@ -1,43 +1,46 @@
-// class Node {
-//     int val;
-//     Node next;
-//     Node random;
+/*
+// Definition for a Node.
+class Node {
+    int val;
+    Node next;
+    Node random;
 
-//     public Node(int val) {
-//         this.val = val;
-//         this.next = null;
-//         this.random = null;
-//     } }
+    public Node(int val) {
+        this.val = val;
+        this.next = null;
+        this.random = null;
+    }
+}
+*/
 
 class Solution {
-    
     public Node copyRandomList(Node head) {
-        if (head == null) {
-            return null;
+        if(head==null)  return head;
+        Node curr=head;
+        while(curr!=null){
+            Node newNode = new Node(curr.val);
+            newNode.next=curr.next;
+            curr.next=newNode;
+            curr=newNode.next;
         }
-        Node current = head;
-        while (current != null) {
-            Node copy = new Node(current.val);
-            copy.next = current.next;
-            current.next = copy;
-            current = current.next.next;
+
+        curr=head;
+        while(curr!=null){
+            if(curr.random!=null)
+                curr.next.random=curr.random.next;
+            curr=curr.next.next;
         }
-        current = head;
-        while (current != null) {
-            if (current.random != null) {
-                current.next.random = current.random.next;
-            }
-            current = current.next.next;
+        curr=head;
+        Node newHead=head.next;
+        Node newCurr=newHead;
+
+        while(curr!=null){
+            curr.next=newCurr.next;
+            curr=curr.next;
+            if(curr!=null){
+                newCurr.next=curr.next;
+                newCurr=curr.next;}
         }
-        Node dummy = new Node(-1);
-        Node copy = dummy;
-        current = head;
-        while (current != null) {
-            copy.next = current.next;
-            copy = copy.next;
-            current.next = current.next.next;
-            current = current.next;
-        }
-        return dummy.next;
+        return newHead;
     }
 }
