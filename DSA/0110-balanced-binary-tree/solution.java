@@ -13,25 +13,17 @@
  *     }
  * }
  */
- class Solution {
-     boolean isBalance=true;
-    private  int height(TreeNode root){
-        if(root==null){
-            return 0;
-        }
-        int lh=height(root.left);
-        int rh=height(root.right);
-
-        if(Math.abs(lh-rh)>1){
-            isBalance=false;
-        }
-        return Math.max(lh,rh)+1;
-    }
-    public  boolean isBalanced(TreeNode root) {
-        if(root==null){
-            return true;
-        }
-       int h=  height(root);
+class Solution {
+    public boolean isBalanced(TreeNode root) {
+        helper(root);
         return isBalance;
+    }
+    boolean isBalance=true;
+    private int helper(TreeNode root){
+        if(root==null)  return 0;
+        int left = helper(root.left);
+        int right = helper(root.right);
+        if(Math.abs(left-right)>1)  isBalance = false;
+        return Math.max(left,right)+1;
     }
 }
