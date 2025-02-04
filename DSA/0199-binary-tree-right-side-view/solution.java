@@ -14,19 +14,21 @@
  * }
  */
 class Solution {
+    List<Integer> list = new ArrayList<>();
     public List<Integer> rightSideView(TreeNode root) {
-        List<Integer> list=new ArrayList<>();
-        helper(root,list,0);
+        if(root==null)  return list;
+        Queue<TreeNode> q=new LinkedList<>();
+        q.offer(root);
+
+        while(!q.isEmpty()){
+            int n = q.size();
+            for(int i=0;i<n;i++){
+                TreeNode  curr=q.poll();
+                if(i==0)    list.add(curr.val);
+                if(curr.right!=null)    q.offer(curr.right);
+                if(curr.left!=null) q.offer(curr.left);
+            }
+        }
         return list;
-    }
-    private void helper(TreeNode root,List<Integer> list, int level){
-        if(root==null){
-            return;
-        }
-        if(list.size()==level){
-            list.add(root.val);
-        }
-        helper(root.right,list,level+1);
-        helper(root.left,list,level+1);
     }
 }
