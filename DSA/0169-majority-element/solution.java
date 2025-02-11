@@ -1,17 +1,17 @@
 class Solution {
     public int majorityElement(int[] nums) {
-        int pnt=0;
-        int cnd=nums[0];
-
+        int cand=nums[0];
+        int point=0;
         for(int num:nums){
-            if(pnt==0) { 
-                cnd=num;
-                pnt++;
+            if(point==0){
+                cand=num;
+                point++;
+            }else if(cand==num){
+                point++;
+            }else{
+                point--;
             }
-            else if(cnd==num)   pnt++;
-            else    pnt--;
         }
-
-        return cnd;
+        return cand;
     }
 }
