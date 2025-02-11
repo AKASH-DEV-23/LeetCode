@@ -1,17 +1,16 @@
 class Solution {
     public boolean isAnagram(String s, String t) {
-        if (s.length() != t.length()) {
-            return false;
+        int[] cnt1=new int[26];
+        int[] cnt2=new int[26];
+
+        for(char ch : s.toCharArray()){
+            cnt1[ch-'a']++;
         }
-        int[] count = new int[26];
-        for (char c : s.toCharArray()) {
-            count[c - 'a']++;
+        for(char ch : t.toCharArray()){
+            cnt2[ch-'a']++;
         }
-        for (char c : t.toCharArray()) {
-            count[c - 'a']--;
-        }
-        for (int n : count) {
-            if (n != 0) {
+        for(int i=0;i<26;i++){
+            if(cnt1[i] != cnt2[i]){
                 return false;
             }
         }
