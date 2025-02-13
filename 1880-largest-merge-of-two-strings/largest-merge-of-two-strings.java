@@ -6,34 +6,34 @@ class Solution {
         l2=word2.length();
         int i=0;
         int j=0;
-        String str="";
+        StringBuilder str= new StringBuilder();
         while(i<l1 && j<l2){
             if(word1.charAt(i)>word2.charAt(j)){
-                str+=word1.charAt(i);
+                str.append(word1.charAt(i));
                 i++;
             }else if(word1.charAt(i) < word2.charAt(j)){
-                str+=word2.charAt(j);
+                str.append(word2.charAt(j));
                 j++;
             }else{
                 int ans=check(word1, word2, i, j);
                 if(ans == 0){
-                    str+=word1.charAt(i);
+                    str.append(word1.charAt(i));
                     i++;
                 } else {
-                    str+=word2.charAt(j);
+                    str.append(word2.charAt(j));
                     j++;
                 }    
             }
         }
         while(i<l1){
-            str+=word1.charAt(i);
+            str.append(word1.charAt(i));
             i++;
         }
         while(j<l2){
-            str+=word2.charAt(j);
+            str.append(word2.charAt(j));
             j++;
         }
-        return str;
+        return str.toString();
     }
 
     private int check(String s1, String s2, int i, int j){
