@@ -1,14 +1,11 @@
 class Solution {
-public static int removeElement(int[] nums, int val) {
-        int count = 0;
-        for (int n : nums) {
-            if (n != val) {
-                nums[count] = n;
-                count++;
+    public int removeElement(int[] nums, int val) {
+        int i=0;
+        for(int num:nums){
+            if(num!=val){
+                nums[i++]=num;
             }
         }
-        return count;
-
-        
+        return i;
     }
 }
