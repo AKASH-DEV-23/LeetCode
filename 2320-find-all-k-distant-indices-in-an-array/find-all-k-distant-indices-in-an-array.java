@@ -17,7 +17,7 @@ class Solution {
         for(int num:ans){
             list.add(num);
         }
-    //    Collections.sort(list);
+    //  Collections.sort(list);
         list.sort(null);
         return list;
     }
