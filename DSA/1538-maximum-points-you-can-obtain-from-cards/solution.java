@@ -8,7 +8,7 @@ class Solution {
         }
         maxSum=lsum;
         int ridx=nums.length-1;
-        for(int i=k-1;i>=0;i--){
+        for(int i=k-1;i>=0;i=i-1){
             lsum-=nums[i];
             rsum+=nums[ridx];
             ridx--;
