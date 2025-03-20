@@ -24,6 +24,7 @@ class Solution {
             curr.next=new ListNode(list.get(i));
             curr=curr.next;
         }
+        // new
         return dummy.next;
     }
 }
