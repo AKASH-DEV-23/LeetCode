@@ -10,6 +10,7 @@
  */
 class Solution {
     public ListNode sortList(ListNode head) {
+        if(head==null || head.next==null)   return head;
         List<Integer> list=new ArrayList<>();
         ListNode temp=head;
         while(temp!=null){
@@ -17,13 +18,13 @@ class Solution {
             temp=temp.next;
         }
         Collections.sort(list);
-        ListNode dummy=new ListNode(-1111);
-        temp=dummy;
+        ListNode dummy=new ListNode(0);
+        ListNode curr=dummy;
         for(int i=0;i<list.size();i++){
-            temp.next=new ListNode(list.get(i));
-            temp=temp.next;
-            
+            curr.next=new ListNode(list.get(i));
+            curr=curr.next;
         }
+        // new
         return dummy.next;
     }
 }
