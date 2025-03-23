@@ -12,6 +12,7 @@ class Solution {
        for(char che:ch){
         ans=ans*10+(che-'0');
        }
+
        return ans;
     }
 }
