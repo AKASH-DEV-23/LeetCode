@@ -15,14 +15,12 @@ class Solution {
             }
            arr[i++]=val;
         }
-        System.out.println(Arrays.toString(arr));
         int n=arr.length;
         int[] suffix=new int[n];
         suffix[n-1]=0;
         for(int j=n-2;j>=0;j--){
             suffix[j]=suffix[j+1]+arr[j+1];
         }
-        System.out.println(Arrays.toString(suffix));
         for(i=n-1;i>=0;i--){
             ans+=suffix[i]+arr[i];
         }
