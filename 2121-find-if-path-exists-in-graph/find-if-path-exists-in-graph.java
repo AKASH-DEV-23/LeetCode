@@ -14,7 +14,7 @@ class Solution {
         boolean[] visited=new boolean[n];
 
         // return bfs(adj,visited,source,destination);
-        return bfs(adj,visited,source,destination);
+        return dfs(adj,visited,source,destination);
     }
 
     private boolean dfs(Map<Integer,ArrayList<Integer>> adj, boolean[] visited, 
