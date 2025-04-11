@@ -12,13 +12,31 @@ class Solution {
             adj.get(v).add(u);
         }
         boolean[] visited=new boolean[n];
+
+        // return bfs(adj,visited,source,destination);
+        return bfs(adj,visited,source,destination);
+    }
+
+    private boolean dfs(Map<Integer,ArrayList<Integer>> adj, boolean[] visited, 
+    int source, int destination){
+        if(source==destination) return true;
+        if(visited[source]) return false;
+        visited[source]=true;
+        for(int vertex:adj.get(source)){
+            if(dfs(adj,visited,vertex,destination)) return true;
+        }
+        return false;
+    }
+
+    private boolean bfs(Map<Integer,ArrayList<Integer>> adj, boolean[] visited, 
+    int source, int destination){
         Queue<Integer> q=new LinkedList<>();
         q.offer(source);
         visited[source]=true;
         while(!q.isEmpty()){
-            int vertex = q.poll();
+            int vertex =q.poll();
             if(vertex==destination) return true;
-            for(int node :adj.get(vertex)){
+            for(int node : adj.get(vertex)){
                 if(!visited[node]){
                     q.offer(node);
                     visited[node]=true;
