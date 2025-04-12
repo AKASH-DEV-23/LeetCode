@@ -5,14 +5,16 @@ class Solution {
         for(int i=0;i<n;i++){
             for(int j=0;j<n;j++){
                 if(isConnected[i][j]==1){
-                    if(!adj.containsKey(i+1))   adj.put(i+1,new ArrayList<Integer>());
-                    adj.get(i+1).add(j+1);
+                    if(!adj.containsKey(i))   adj.put(i,new ArrayList<Integer>());
+                    if(!adj.containsKey(j)) adj.put(j,new ArrayList<>());
+                    adj.get(i).add(j);
+                    adj.get(j).add(i);
                 }
             }
         }
         int cnt=0;
-        boolean[] visited=new boolean[n+1];
-        for(int i=1;i<=n;i++){
+        boolean[] visited=new boolean[n];
+        for(int i=0;i<n;i++){
             if(!visited[i]){
                 dfs(adj,i,visited);
                 cnt++;
@@ -22,7 +24,6 @@ class Solution {
     }
 
     private void dfs(Map<Integer, ArrayList<Integer>> adj, int vertex, boolean[] visited){
-        if(visited[vertex]) return;
         visited[vertex]=true;
         for(int node:adj.get(vertex)){
             if(!visited[node])  dfs(adj,node,visited);
