@@ -1,14 +1,19 @@
 class Solution {
-    Set<Integer> set1=new HashSet<>();
+    Set<Integer> set = new HashSet<>();
     public boolean isHappy(int n) {
-        if(n==1)    return true;
-        if(set1.contains(n))    return false;
-        set1.add(n);
+        return check(n);
+    }
+    private boolean check(int num){
+        if(num==1)  return true;
+        if(set.contains(num))   return false;
+        set.add(num);
         int sum=0;
-        while(n>0){
-            sum+=Math.pow(n%10,2);
-            n/=10;
+        while(num>0){
+            int rem=num%10;
+            num/=10;
+            rem=rem*rem;
+            sum+=rem;
         }
-       return isHappy(sum);
+        return check(sum);
     }
 }
