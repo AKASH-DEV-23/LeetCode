@@ -10,6 +10,7 @@ class Solution {
             if(nums[j]==maxi){
                 cnt++;
             }
+
             while(cnt>=k){
                 if(nums[i]==maxi){
                     cnt--;
