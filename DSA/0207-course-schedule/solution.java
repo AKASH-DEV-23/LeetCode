@@ -1,42 +1,29 @@
 class Solution {
+    boolean[] visited;
+    boolean[] isRecurrsion;
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        List<List<Integer>> adj=new ArrayList<>();
-        for(int i=0;i<numCourses;i++){
-            adj.add(new ArrayList<>());
+        Map<Integer,List<Integer>> map=new HashMap<>();
+        for(int[] graph:prerequisites){
+            int u=graph[1];
+            int v=graph[0];
+            if(!map.containsKey(u)) map.put(u,new ArrayList<>());
+            map.get(u).add(v);
         }
-        for(int[] arr: prerequisites){
-            adj.get(arr[0]).add(arr[1]);
-        }
-
-        int inStack[]=new int[numCourses];
-        int visited[] =new int[numCourses];
-
+        visited=new boolean[numCourses];
+        isRecurrsion=new boolean[numCourses];
         for(int i=0;i<numCourses;i++){
-            if(dfs(adj,inStack,visited,i)){
-                return false;
-            }
+            if(!visited[i] && isCycle(map,i))   return false;
         }
         return true;
     }
-
-    private static boolean dfs(List<List<Integer>> adj, int[] inStack, int[] visited, int i){
-        if(inStack[i]==1){
-            return true;
+    private boolean isCycle(Map<Integer, List<Integer>> map, int u){
+        visited[u]=true;
+        isRecurrsion[u]=true;
+        for(int v:map.getOrDefault(u,new ArrayList<>())){
+            if(visited[v]==false && isCycle(map,v)) return true;
+            else if(isRecurrsion[v])    return true;
         }
-        if(visited[i]==1){
-            return false;
-        }
-
-        inStack[i]=1;
-        visited[i]=1;
-
-        for(int n:adj.get(i)){
-            if(dfs(adj,inStack,visited,n)){
-                return true;
-            }
-        }
-
-        inStack[i]=0;
+        isRecurrsion[u]=false;
         return false;
     }
 }
