@@ -1,32 +1,33 @@
 class Solution {
+    boolean[] visited;
     public int findCircleNum(int[][] isConnected) {
+        Map<Integer,List<Integer>> map=new HashMap<>();
         int n=isConnected.length;
-        Map<Integer, ArrayList<Integer>> adj=new HashMap<>();
+        visited=new boolean[n+1];
+        for(int i=1;i<=n;i++){
+            map.put(i,new ArrayList<>());
+        }
         for(int i=0;i<n;i++){
             for(int j=0;j<n;j++){
-                if(isConnected[i][j]==1){
-                    if(!adj.containsKey(i))   adj.put(i,new ArrayList<Integer>());
-                    if(!adj.containsKey(j)) adj.put(j,new ArrayList<>());
-                    adj.get(i).add(j);
-                    adj.get(j).add(i);
+                if(i!=j && isConnected[i][j]==1){
+                    map.get(i+1).add(j+1);
                 }
             }
         }
         int cnt=0;
-        boolean[] visited=new boolean[n];
-        for(int i=0;i<n;i++){
+        for(int i=1;i<=n;i++){
             if(!visited[i]){
-                dfs(adj,i,visited);
+                DFS(map,i);
                 cnt++;
             }
         }
+        // System.out.print(map);
         return cnt;
     }
-
-    private void dfs(Map<Integer, ArrayList<Integer>> adj, int vertex, boolean[] visited){
-        visited[vertex]=true;
-        for(int node:adj.get(vertex)){
-            if(!visited[node])  dfs(adj,node,visited);
+    private void DFS(Map<Integer,List<Integer>> map, int u){
+        visited[u]=true;
+        for(int v:map.get(u)){
+            if(!visited[v]) DFS(map,v);
         }
-    }
+    } 
 }
