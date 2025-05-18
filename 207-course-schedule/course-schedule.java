@@ -1,29 +1,42 @@
 class Solution {
     boolean[] visited;
-    boolean[] isRecurrsion;
+    int[] inDegree;
     public boolean canFinish(int numCourses, int[][] prerequisites) {
         Map<Integer,List<Integer>> map=new HashMap<>();
-        for(int[] graph:prerequisites){
-            int u=graph[1];
-            int v=graph[0];
+        for(int[] edge:prerequisites){
+            int u=edge[1];
+            int v=edge[0];
             if(!map.containsKey(u)) map.put(u,new ArrayList<>());
             map.get(u).add(v);
         }
         visited=new boolean[numCourses];
-        isRecurrsion=new boolean[numCourses];
+        inDegree=new int[numCourses];
+        for(int key:map.keySet()){
+            for(int v:map.get(key))
+                inDegree[v]++;
+        }
+        Queue<Integer> q=new LinkedList<>();
+        int cnt=0;
         for(int i=0;i<numCourses;i++){
-            if(!visited[i] && isCycle(map,i))   return false;
+            if(inDegree[i]==0){
+                q.offer(i);
+                visited[i]=true;
+                cnt++;
+            }
         }
-        return true;
-    }
-    private boolean isCycle(Map<Integer, List<Integer>> map, int u){
-        visited[u]=true;
-        isRecurrsion[u]=true;
-        for(int v:map.getOrDefault(u,new ArrayList<>())){
-            if(visited[v]==false && isCycle(map,v)) return true;
-            else if(isRecurrsion[v])    return true;
+        while(!q.isEmpty()){
+            int u=q.poll();
+            for(int v:map.getOrDefault(u,new ArrayList<>())){
+                if(!visited[v]){
+                    inDegree[v]--;
+                    if(inDegree[v]==0){
+                        q.offer(v);
+                        visited[v]=true;
+                        cnt++;
+                    }
+                }
+            }
         }
-        isRecurrsion[u]=false;
-        return false;
+        return cnt==numCourses ? true : false;
     }
 }
