@@ -1,43 +1,33 @@
 class Solution {
+    int m;
+    int n;
+    int time=0;
     public int orangesRotting(int[][] grid) {
-        int m=grid.length;
-        int n=grid[0].length;
-        Queue<int[]> q=new LinkedList<>();
-        boolean flag=true;
+        m=grid.length;
+        n=grid[0].length;
         for(int i=0;i<m;i++){
             for(int j=0;j<n;j++){
-                if(grid[i][j]==1)   flag=false;
                 if(grid[i][j]==2){
-                    q.offer(new int[]{i,j});
+                    DFS(grid,i,j,2);
                 }
             }
-        }
-        if(flag)    return 0;
-        int[][] directions=new int[][]{{0,-1},{0,1},{-1,0},{1,0}};
-        int cnt=0;
-        while(!q.isEmpty()){
-            int k=q.size();
-            for(int i=0;i<k;i++){
-                int[] cordi=q.poll();
-                int x=cordi[0];
-                int y=cordi[1];
-                for(int[] dir:directions){
-                    int newX=x+dir[0];
-                    int newY=y+dir[1];
-                    if(newX>=0 && newX<m && newY>=0 && newY<n && grid[newX][newY]==1){
-                        q.offer(new int[]{newX,newY});
-                        grid[newX][newY]=2;
-                    }
-                }
-            }
-            cnt++;
         }
         for(int i=0;i<m;i++){
             for(int j=0;j<n;j++){
                 if(grid[i][j]==1)   return -1;
+                time=Math.max(time,grid[i][j]);
             }
         }
-        return cnt-1;
+        if(time==0) return 0;
+        return time==2 ? 0 : time-2;
     }
-    
+    private void DFS(int[][] grid, int i, int j, int currTime){
+        if(i<0 || j<0 || i>=m || j>=n)  return;
+        if(grid[i][j]!=1 && grid[i][j]<currTime)    return;
+        grid[i][j]=currTime;
+        DFS(grid,i-1,j,currTime+1);
+        DFS(grid,i+1,j,currTime+1);
+        DFS(grid,i,j-1,currTime+1);
+        DFS(grid,i,j+1,currTime+1);
+    }
 }
