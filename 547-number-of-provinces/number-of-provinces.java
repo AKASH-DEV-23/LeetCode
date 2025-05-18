@@ -3,31 +3,37 @@ class Solution {
     public int findCircleNum(int[][] isConnected) {
         Map<Integer,List<Integer>> map=new HashMap<>();
         int n=isConnected.length;
-        visited=new boolean[n+1];
-        for(int i=1;i<=n;i++){
-            map.put(i,new ArrayList<>());
-        }
         for(int i=0;i<n;i++){
             for(int j=0;j<n;j++){
-                if(i!=j && isConnected[i][j]==1){
-                    map.get(i+1).add(j+1);
+                if(i==j)    continue;
+                if(isConnected[i][j]==1){
+                    if(!map.containsKey(i)) map.put(i,new ArrayList<>());
+                    map.get(i).add(j);
                 }
             }
         }
         int cnt=0;
-        for(int i=1;i<=n;i++){
+        visited=new boolean[n];
+        for(int i=0;i<n;i++){
             if(!visited[i]){
-                DFS(map,i);
+                BFS(map,i);
                 cnt++;
             }
         }
-        // System.out.print(map);
         return cnt;
     }
-    private void DFS(Map<Integer,List<Integer>> map, int u){
+    private void BFS(Map<Integer,List<Integer>> map, int u){
+        Queue<Integer> q=new LinkedList<>();
         visited[u]=true;
-        for(int v:map.get(u)){
-            if(!visited[v]) DFS(map,v);
+        q.offer(u);
+        while(!q.isEmpty()){
+            u=q.poll();
+            for(int v:map.getOrDefault(u,new ArrayList<>())){
+                if(!visited[v]){
+                    q.offer(v);
+                    visited[v]=true;
+                }
+            }
         }
-    } 
+    }
 }
