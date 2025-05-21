@@ -2,21 +2,27 @@ class Solution {
     List<List<Integer>> ans;
     public List<List<Integer>> permute(int[] nums) {
         ans=new ArrayList<>();
-        List<Integer> temp=new ArrayList<>();
-        solve(nums,temp);
+        helper(nums,0);
         return ans;
     }
-    private void solve(int[] nums, List<Integer> temp){
-        if(temp.size()==nums.length){
-            ans.add(new ArrayList<>(temp));
+    private void helper(int[] arr, int idx){
+        if(idx==arr.length){
+            List<Integer> list=new ArrayList<>();
+            for(int num:arr){
+                list.add(num);
+            }
+            ans.add(list);
             return;
         }
-        for(int i=0;i<nums.length;i++){
-            if(!temp.contains(nums[i])){
-                temp.add(nums[i]);
-                solve(nums,temp);
-                temp.remove(temp.size()-1);
-            }
+        for(int i=idx;i<arr.length;i++){
+            swap(arr,i,idx);
+            helper(arr,idx+1);
+            swap(arr,i,idx);
         }
+    }
+    private void swap(int[] arr, int i, int j){
+        int temp=arr[i];
+        arr[i]=arr[j];
+        arr[j]=temp;
     }
 }
