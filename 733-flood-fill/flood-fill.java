@@ -1,13 +1,13 @@
 class Solution {
-    int[][] grid;
+    // int[][] grid;
     public int[][] floodFill(int[][] image, int sr, int sc, int color) {
         if(image[sr][sc]==color) return image;
         // int m=image.length;
         // int n=image[0].length;
         // grid=new int[m][n];
         // for(int[] gr:grid)  Arrays.fill(gr,-1);
-        // BFS(image,sr,sc,color);
-        DFS(image,sr,sc,image[sr][sc],color);
+        BFS(image,sr,sc,color);
+        // DFS(image,sr,sc,image[sr][sc],color);
         // for(int i=0;i<m;i++){
         //     for(int j=0;j<n;j++){
         //         if(image[i][j]!=-1)     grid[i][j]=image[i][j];
@@ -20,7 +20,7 @@ class Solution {
         int orgPxl=image[i][j];
         q.offer(new int[]{i,j});
         image[i][j]=-1;
-        grid[i][j]=color;
+        image[i][j]=color;
         int[][] directions=new int[][]{{0,-1},{0,1},{-1,0},{1,0}};
         while(!q.isEmpty()){
             int[] curr=q.poll();
@@ -30,7 +30,7 @@ class Solution {
                 if(isSafe(image,newX,newY,orgPxl)){
                     q.offer(new int[]{newX,newY});
                     image[newX][newY]=-1;
-                    grid[newX][newY]=color;
+                    image[newX][newY]=color;
                 }
             }
         }
