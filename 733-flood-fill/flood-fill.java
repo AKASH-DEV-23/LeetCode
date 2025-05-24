@@ -2,18 +2,18 @@ class Solution {
     int[][] grid;
     public int[][] floodFill(int[][] image, int sr, int sc, int color) {
         if(image[sr][sc]==color) return image;
-        int m=image.length;
-        int n=image[0].length;
-        grid=new int[m][n];
-        for(int[] gr:grid)  Arrays.fill(gr,-1);
+        // int m=image.length;
+        // int n=image[0].length;
+        // grid=new int[m][n];
+        // for(int[] gr:grid)  Arrays.fill(gr,-1);
         // BFS(image,sr,sc,color);
         DFS(image,sr,sc,image[sr][sc],color);
-        for(int i=0;i<m;i++){
-            for(int j=0;j<n;j++){
-                if(image[i][j]!=-1)     grid[i][j]=image[i][j];
-            }
-        }
-        return grid;
+        // for(int i=0;i<m;i++){
+        //     for(int j=0;j<n;j++){
+        //         if(image[i][j]!=-1)     grid[i][j]=image[i][j];
+        //     }
+        // }
+        return image;
     }
     private void BFS(int[][] image, int i, int j, int color){
         Queue<int[]> q=new LinkedList<>();
