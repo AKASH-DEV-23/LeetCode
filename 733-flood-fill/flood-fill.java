@@ -1,11 +1,13 @@
 class Solution {
     int[][] grid;
     public int[][] floodFill(int[][] image, int sr, int sc, int color) {
+        if(image[sr][sc]==color) return image;
         int m=image.length;
         int n=image[0].length;
         grid=new int[m][n];
         for(int[] gr:grid)  Arrays.fill(gr,-1);
-        BFS(image,sr,sc,color);
+        // BFS(image,sr,sc,color);
+        DFS(image,sr,sc,image[sr][sc],color);
         for(int i=0;i<m;i++){
             for(int j=0;j<n;j++){
                 if(image[i][j]!=-1)     grid[i][j]=image[i][j];
@@ -35,5 +37,13 @@ class Solution {
     }
     private boolean isSafe(int[][] image, int i, int j, int orgPxl){
         return i>=0 && i<image.length && j>=0 && j<image[0].length && image[i][j]==orgPxl;
+    }
+    private void DFS(int[][] image, int i, int j, int orgPxl, int color){
+        if(!isSafe(image, i, j, orgPxl))  return;
+        image[i][j]=color;
+        DFS(image,i-1,j,orgPxl,color);
+        DFS(image,i+1,j,orgPxl,color);
+        DFS(image,i,j-1,orgPxl,color);
+        DFS(image,i,j+1,orgPxl,color);
     }
 }
