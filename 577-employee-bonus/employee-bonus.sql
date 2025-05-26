@@ -2,4 +2,4 @@
 SELECT Employee.name, Bonus.bonus
 FROM Employee LEFT JOIN Bonus
 ON Employee.empId = Bonus.empId
-WHERE bonus is NULL OR bonus < 1000;
+WHERE Bonus.bonus is NULL OR Bonus.bonus < 1000;
