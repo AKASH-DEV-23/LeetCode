@@ -33,13 +33,15 @@ class Solution {
             pq.offer(graph);
         }
         int cost=0;
-        while(!pq.isEmpty()){
+        int totalEdge=0;
+        while(!pq.isEmpty() && totalEdge<V){
             int[] edge=pq.poll();
             int u=edge[0];
             int v=edge[1];
             int w=edge[2];
             if(dsu.isConnected(u,v))    continue;
             cost+=w;
+            totalEdge++;
             dsu.union(u,v);
         }
         return cost;
