@@ -28,13 +28,13 @@ class Solution {
         pq.offer(new int[]{0,0});
         int cost=0;
         int cnt=0;
-        while(!pq.isEmpty() && cnt<V){
+        while(!pq.isEmpty()){
             int[] edge=pq.poll();
             int u=edge[0];
             int w=edge[1];
             if(visited[u])  continue;
             cost+=w;
-            cnt++;
+            // cnt++;
             visited[u]=true;
             for(int[] graph:map.get(u)){
                 if(!visited[graph[0]]){
