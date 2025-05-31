@@ -1,39 +1,48 @@
 class Solution {
-    boolean[] visited;
     public int findCircleNum(int[][] isConnected) {
-        Map<Integer,List<Integer>> map=new HashMap<>();
         int n=isConnected.length;
+        DSU dsu=new DSU(n);
         for(int i=0;i<n;i++){
             for(int j=0;j<n;j++){
-                if(i==j)    continue;
-                if(isConnected[i][j]==1){
-                    if(!map.containsKey(i)) map.put(i,new ArrayList<>());
-                    map.get(i).add(j);
-                }
+                if(isConnected[i][j]==1)
+                    dsu.union(i,j);
             }
         }
-        int cnt=0;
-        visited=new boolean[n];
+        Set<Integer> set=new HashSet<>();
         for(int i=0;i<n;i++){
-            if(!visited[i]){
-                BFS(map,i);
-                cnt++;
-            }
+            set.add(dsu.find(i));
         }
-        return cnt;
+        return set.size();
     }
-    private void BFS(Map<Integer,List<Integer>> map, int u){
-        Queue<Integer> q=new LinkedList<>();
-        visited[u]=true;
-        q.offer(u);
-        while(!q.isEmpty()){
-            u=q.poll();
-            for(int v:map.getOrDefault(u,new ArrayList<>())){
-                if(!visited[v]){
-                    q.offer(v);
-                    visited[v]=true;
-                }
-            }
+}
+class DSU{
+    int[] parent;
+    int[] size;
+
+    public DSU(int n){
+        parent=new int[n];
+        size=new int[n];
+
+        for(int i=0;i<n;i++){
+            parent[i]=i;
+            size[i]=1;
+        }
+    }
+
+    public int find(int x){
+        if(x==parent[x])    return x;
+        return parent[x]=find(parent[x]);
+    }
+
+    public void union(int x, int y){
+        int xParent=find(x);
+        int yParent=find(y);
+        if(xParent==yParent)    return;
+        if(size[xParent]>size[yParent])     parent[yParent]=xParent;
+        else if(size[yParent]>size[xParent])    parent[xParent]=yParent;
+        else{
+            parent[yParent]=xParent;
+            size[xParent]++;
         }
     }
 }
