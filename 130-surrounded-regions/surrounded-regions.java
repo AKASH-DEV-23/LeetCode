@@ -1,29 +1,44 @@
 class Solution {
     public void solve(char[][] board) {
-        int row=board.length;
-        int col=board[0].length;
-        for(int i=0;i<col;i++){
-            if(board[0][i]=='O')    dfs(board,0,i);
-            if(board[row-1][i]=='O')    dfs(board,row-1,i);
+        int m=board.length;
+        int n=board[0].length;
+        for(int col=0;col<n;col++){
+            if(board[0][col]=='O'){
+                DFS(board,0,col);
+            }
+            if(board[m-1][col]=='O'){
+                DFS(board,m-1,col);
+            }
         }
-        for(int i=0;i<row;i++){
-            if(board[i][0]=='O')    dfs(board,i,0);
-            if(board[i][col-1]=='O')    dfs(board,i,col-1);
+        for(int row=0;row<m;row++){
+            if(board[row][0]=='O'){
+                DFS(board,row,0);
+            }
+            if(board[row][n-1]=='O'){
+                DFS(board,row,n-1);
+            }
         }
-        for(int i=0;i<row;i++){
-            for(int j=0;j<col;j++){
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
                 if(board[i][j]=='O')    board[i][j]='X';
-                if(board[i][j]=='T')    board[i][j]='O';
+                if(board[i][j]=='A')    board[i][j]='O';
             }
         }
     }
-    private void dfs(char[][] board, int row, int col){
-        if(row<0 || col<0 || row>=board.length || col>=board[0].length ||
-            board[row][col]!='O')         return;
-        board[row][col]='T';
-        dfs(board,row+1,col);
-        dfs(board,row-1,col);
-        dfs(board,row,col+1);
-        dfs(board,row,col-1);
+    private void DFS(char[][] grid, int i, int j){
+        if(!isSafe(grid,i,j)){
+            return;
+        }
+        if(grid[i][j]=='X' || grid[i][j]=='A')    return;
+        grid[i][j]='A';
+        DFS(grid,i-1,j);
+        DFS(grid,i+1,j);
+        DFS(grid,i,j-1);
+        DFS(grid,i,j+1);
+    }
+    private boolean isSafe(char[][] grid, int i, int j){
+        int m=grid.length;
+        int n=grid[0].length;
+        return i>=0 && i<m && j>=0 && j<n;
     }
 }
