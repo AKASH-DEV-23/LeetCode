@@ -13,18 +13,24 @@ class Solution {
             }
         }
         for(int i=0;i<m;i++){
-            if(row[i]==1){
-                for(int j=0;j<n;j++){
-                    matrix[i][j]=0;
-                }  
-            }
+            if(row[i]==1)
+                rowZero(matrix,i);
         }
         for(int i=0;i<n;i++){
-            if(col[i]==1){
-                for(int j=0;j<m;j++){
-                    matrix[j][i]=0;
-                }
-            }
+            if(col[i]==1)
+                colZero(matrix,i);
+        }
+    }
+    private void rowZero(int[][] mat, int idx){
+        int n=mat[0].length;
+        for(int i=0;i<n;i++){
+            mat[idx][i]=0;
+        }
+    }
+    private void colZero(int[][] mat, int idx){
+        int m=mat.length;
+        for(int i=0;i<m;i++){
+            mat[i][idx]=0;
         }
     }
 }
