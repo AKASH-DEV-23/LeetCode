@@ -17,7 +17,7 @@ class Solution {
                 }
             }
         }
-        System.out.println(map);
+        // System.out.println(map);
         return BFS(map,beginWord,endWord);
     }
     private int BFS(Map<String,List<String>> map, String beginWord, String endWord){
