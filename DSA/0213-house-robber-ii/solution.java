@@ -4,7 +4,7 @@ class Solution {
         int n=nums.length;
         if(n==1)    return nums[0];
         if(n==2)    return Math.max(nums[0],nums[1]);
-        dp=new int[n];
+        dp=new int[101];
         Arrays.fill(dp,-1);
         int steal1=solve(nums,0,n-2);
         Arrays.fill(dp,-1);
