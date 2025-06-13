@@ -1,16 +1,26 @@
 class Solution {
+    int mini=Integer.MAX_VALUE;
+    int[][] dp=new int[13][10001];
     public int coinChange(int[] coins, int amount) {
-        int max=amount+1;
-        int[] dp=new int[amount+1];
-        Arrays.fill(dp,max);
-        dp[0]=0;
-        for(int i=1;i<=amount;i++){
-            for(int j=0;j<coins.length;j++){
-                if(coins[j]<=i){
-                    dp[i]=Math.min(dp[i],dp[i-coins[j]]+1);
-                }
-            }
+        for(int[] arr:dp)   Arrays.fill(arr,-1);
+        solve(coins,0,0,amount);
+        return mini==Integer.MAX_VALUE ? -1 :mini;
+    }
+    private void solve(int[] coins, int i,int cnt, int amount){
+        if(amount==0){
+            mini=Math.min(mini,cnt);
+            return;
         }
-        return dp[amount]>amount?-1:dp[amount];
+        if(dp[i][amount]!=-1 && dp[i][amount]<=cnt)   return;
+        dp[i][amount]=cnt;
+        if(i>=coins.length){
+            return;
+        }
+        if(amount<coins[i]){
+            solve(coins,i+1,cnt,amount);
+            return;
+        }
+        solve(coins,i,cnt+1,amount-coins[i]);
+        solve(coins,i+1,cnt,amount);
     }
 }
