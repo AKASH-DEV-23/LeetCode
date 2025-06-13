@@ -5,8 +5,8 @@ class Solution {
         return solve(coins,0,amount);
     }
     private int solve(int[] coins, int i, int amount){
+        if(amount==0)   return 1;
         if(i>=coins.length){
-            if(amount==0)   return 1;
             return 0;
         }
         if(dp[i][amount]!=-1)   return dp[i][amount];
