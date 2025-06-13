@@ -1,18 +1,19 @@
 class Solution {
-    Boolean[][] dp;
+    int target=0;
+    Boolean[][] dp=new Boolean[20001][201];
     public boolean canPartition(int[] nums) {
-        int sum=0;
-        for(int num:nums)   sum+=num;
-        if(sum%2!=0)    return false;
-        dp=new Boolean[201][20001];
-        return solve(nums,sum/2,0);
+       int sum=0;
+       for(int num:nums){
+        sum+=num;
+       } 
+       target=sum/2;
+       if(sum%2!=0) return false;
+       return solve(nums,0,0);
     }
     private boolean solve(int[] nums, int sum,int i){
-        if(sum==0)  return true;
-        if(i>=nums.length || sum<0)  return false;
-        if(dp[i][sum]!=null)   return dp[i][sum];
-        boolean take=solve(nums,sum-nums[i],i+1);
-        boolean notTake=solve(nums,sum,i+1);
-        return dp[i][sum] = take || notTake;
+        if(sum==target) return true;
+        if(sum>target || i>=nums.length)  return false;
+        if(dp[sum][i]!=null)    return dp[sum][i];
+        return dp[sum][i]=solve(nums,sum+nums[i],i+1) || solve(nums,sum,i+1);
     }
 }
