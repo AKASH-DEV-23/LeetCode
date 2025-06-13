@@ -1,19 +1,10 @@
 class Solution {
     public int fib(int n) {
-        if(n==0){
-            return 0;
+        int[] dp=new int[31];
+        dp[1]=1;
+        for(int i=2;i<=30;i++){
+            dp[i]=dp[i-1]+dp[i-2];
         }
-        if(n==1){
-            return 1;
-        }
-
-        int ft=0;
-        int st=1;
-        for(int i=1;i<=n;i++){
-            int tt=ft+st;
-            ft=st;
-            st=tt;
-        }
-        return ft;
+        return dp[n];
     }
 }
