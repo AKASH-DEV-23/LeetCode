@@ -16,7 +16,7 @@ class Solution {
             if(grid[i][0]==-1)  break;
             grid[i][0]=1;
         }
-        System.out.println(Arrays.deepToString(grid));
+        // System.out.println(Arrays.deepToString(grid));
         for(int i=1;i<m;i++){
             for(int j=1;j<n;j++){
                 int sum=0;
