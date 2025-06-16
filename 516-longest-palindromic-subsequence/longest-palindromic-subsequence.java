@@ -8,12 +8,11 @@ class Solution {
         if(i>j) return 0;
         if(i==j)    return 1;
         if(dp[i][j]!=-1)    return dp[i][j];
-        if(s.charAt(i)==s.charAt(j)){
-            return 2+solve(s,i+1,j-1);
-        }else{
+        if(s.charAt(i)==s.charAt(j))    return dp[i][j]= 2+solve(s,i+1,j-1);
+        else{
             int path1=solve(s,i+1,j);
             int path2=solve(s,i,j-1);
-            return dp[i][j] = Math.max(path1,path2);
+            return dp[i][j]= Math.max(path1,path2);
         }
     }
 }
