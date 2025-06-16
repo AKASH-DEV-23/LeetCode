@@ -7,6 +7,6 @@ class Solution {
         for(int key:map.keySet()){
             if(map.get(key)==1) return key;
         }
-        return 1;
+        return -1;
     }
 }
