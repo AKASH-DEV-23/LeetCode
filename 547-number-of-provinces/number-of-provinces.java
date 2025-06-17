@@ -20,7 +20,8 @@ class Solution {
                 component++;
             }
         }
-        return component;
+        // return component;
+        return disJoint(isConnected);
     }
     private void DFS(Map<Integer,List<Integer>> map, int u, boolean[] visited){
         visited[u]=true;
@@ -45,6 +46,51 @@ class Solution {
                     }
                 }
             }
+        }
+    }
+    private int disJoint(int[][] isConnected){
+        int n=isConnected.length;
+        DSU dsu=new DSU(n);
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                if(isConnected[i][j]==1){
+                    dsu.union(i+1,j+1);
+                }
+            }
+        }
+        Set<Integer> set=new HashSet<>();
+        for(int i=1;i<=n;i++){
+            int c=dsu.find(i);
+            set.add(c);
+        }
+        return set.size();
+    }
+}
+class DSU{
+    int[] parent;
+    int[] rank;
+
+    public DSU(int size){
+        parent=new int[size+1];
+        rank=new int[size+1];
+        for(int i=1;i<=size;i++){
+            parent[i]=i;
+            rank[i]=1;
+        }
+    }
+    public int find(int x){
+        if(parent[x]==x)    return x;
+        return parent[x] = find(parent[x]);
+    }
+    public void union(int x, int y){
+        int xParent=find(x);
+        int yParent=find(y);
+        if(xParent==yParent)    return;
+        if(rank[xParent]>rank[yParent])     parent[yParent]=xParent;
+        else if(rank[xParent]<rank[yParent])    parent[xParent]=yParent;
+        else{
+            parent[yParent]=xParent;
+            rank[xParent]++;
         }
     }
 }
