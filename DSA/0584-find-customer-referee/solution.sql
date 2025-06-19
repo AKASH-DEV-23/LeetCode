@@ -1,2 +1,2 @@
 # Write your MySQL query statement below
-SELECT name FROM Customer WHERE referee_id != 2 OR referee_id is NULL;
+select name from Customer where referee_id is Null or referee_id!=2 ;
