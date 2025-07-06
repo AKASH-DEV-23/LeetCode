@@ -3,7 +3,7 @@ class Solution {
         int[] nums=new int[501];
 
         for(int num:arr){
-           nums[num]++;
+           nums[num]+=1;
         }
         for(int i=500;i>0;i--){
             if(nums[i]==i){
