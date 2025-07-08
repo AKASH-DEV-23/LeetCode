@@ -1,8 +1,8 @@
 class Solution {
     public int swimInWater(int[][] grid) {
-        return BFS(grid);
+        return Dijkstra(grid);
     }
-    private int BFS(int[][] grid){
+    private int Dijkstra(int[][] grid){
         int row=grid.length;
         Comparator<int[]> com=new Comparator<>(){
             public int compare(int[] a, int[] b){
