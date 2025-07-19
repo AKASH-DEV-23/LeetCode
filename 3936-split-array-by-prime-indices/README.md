@@ -1,15 +1,13 @@
-<h2><a href="https://leetcode.com/problems/split-array-by-prime-indices">Split Array by Prime Indices</a></h2> <img src='https://img.shields.io/badge/Difficulty-Medium-orange' alt='Difficulty: Medium' /><hr><p>You are given an integer array <code>nums</code>.</p>
+<p>You are given an integer array <code>nums</code>.</p>
 
 <p>Split <code>nums</code> into two arrays <code>A</code> and <code>B</code> using the following rule:</p>
 
 <ul>
-	<li>Elements at <strong>prime</strong> indices in <code>nums</code> must go into array <code>A</code>.</li>
+	<li>Elements at <strong><span data-keyword="prime-number">prime</span></strong> indices in <code>nums</code> must go into array <code>A</code>.</li>
 	<li>All other elements must go into array <code>B</code>.</li>
 </ul>
 
 <p>Return the <strong>absolute</strong> difference between the sums of the two arrays: <code>|sum(A) - sum(B)|</code>.</p>
-
-<p>A <strong>prime</strong> number is a natural number greater than 1 with only two factors, 1 and itself.</p>
 
 <p><strong>Note:</strong> An empty array has a sum of 0.</p>
 
