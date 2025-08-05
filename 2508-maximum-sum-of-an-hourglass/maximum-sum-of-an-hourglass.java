@@ -19,7 +19,6 @@ class Solution {
             if(idx==1)  sum+=grid[i+1][j];
             j++;
         }
-        System.out.print(sum+" ");
         return sum;
     }
 }
