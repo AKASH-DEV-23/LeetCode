@@ -1,10 +1,10 @@
 class Solution {
     public boolean hasAllCodes(String s, int k) {
-        if(k>s.length())    return false;
-        HashSet<String> set=new HashSet<>();
-        for(int i=0;i<=s.length()-k;i++){
-            set.add(s.substring(i,i+k));
+        Set<String> visi=new HashSet<>();
+        for(int i=k;i<=s.length();i++){
+            visi.add(s.substring(i-k,i));
         }
-        return set.size()==Math.pow(2,k);
+        if(visi.size()==Math.pow(2,k))  return true;
+        return false;
     }
 }
