@@ -2,43 +2,50 @@ class Solution {
     public void solve(char[][] board) {
         int m=board.length;
         int n=board[0].length;
-        for(int col=0;col<n;col++){
-            if(board[0][col]=='O'){
-                DFS(board,0,col);
+        for(int i=0;i<n;i++){
+            if(board[0][i]=='O'){
+                DFS(board,0,i);
             }
-            if(board[m-1][col]=='O'){
-                DFS(board,m-1,col);
+            if(board[m-1][i]=='O'){
+                DFS(board,m-1,i);
             }
         }
-        for(int row=0;row<m;row++){
-            if(board[row][0]=='O'){
-                DFS(board,row,0);
+        for(int i=0;i<m;i++){
+            if(board[i][0]=='O'){
+                DFS(board,i,0);
             }
-            if(board[row][n-1]=='O'){
-                DFS(board,row,n-1);
+            if(board[i][n-1]=='O'){
+                DFS(board,i,n-1);
             }
         }
         for(int i=0;i<m;i++){
             for(int j=0;j<n;j++){
-                if(board[i][j]=='O')    board[i][j]='X';
-                if(board[i][j]=='A')    board[i][j]='O';
+                if(board[i][j]=='O'){
+                    DFS1(board,i,j);
+                }
+            }
+        }
+        System.out.println(Arrays.deepToString(board));
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(board[i][j]=='Y')    board[i][j]='O';
             }
         }
     }
     private void DFS(char[][] grid, int i, int j){
-        if(!isSafe(grid,i,j)){
-            return;
-        }
-        if(grid[i][j]=='X' || grid[i][j]=='A')    return;
-        grid[i][j]='A';
+        if(i<0 || i>=grid.length || j<0 || j>=grid[0].length || grid[i][j]!='O')    return;
+        grid[i][j]='Y';
         DFS(grid,i-1,j);
         DFS(grid,i+1,j);
         DFS(grid,i,j-1);
         DFS(grid,i,j+1);
     }
-    private boolean isSafe(char[][] grid, int i, int j){
-        int m=grid.length;
-        int n=grid[0].length;
-        return i>=0 && i<m && j>=0 && j<n;
+    private void DFS1(char[][] grid, int i, int j){
+        if(i<0 || i>=grid.length || j<0 || j>=grid[0].length || grid[i][j]!='O')    return;
+        grid[i][j]='X';
+        DFS1(grid,i-1,j);
+        DFS1(grid,i+1,j);
+        DFS1(grid,i,j-1);
+        DFS1(grid,i,j+1);
     }
 }
