@@ -1,42 +1,26 @@
 class Solution {
-    boolean[] visited;
-    int[] inDegree;
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        Map<Integer,List<Integer>> map=new HashMap<>();
+        Map<Integer,List<Integer>> adj=new HashMap<>();
+        int[] inDegree=new int[numCourses]; 
         for(int[] edge:prerequisites){
             int u=edge[1];
             int v=edge[0];
-            if(!map.containsKey(u)) map.put(u,new ArrayList<>());
-            map.get(u).add(v);
+            if(!adj.containsKey(u))    adj.put(u,new ArrayList<>());
+            adj.get(u).add(v);
+            inDegree[v]++;
         }
-        visited=new boolean[numCourses];
-        inDegree=new int[numCourses];
-        for(int key:map.keySet()){
-            for(int v:map.get(key))
-                inDegree[v]++;
-        }
-        Queue<Integer> q=new LinkedList<>();
-        int cnt=0;
+        Queue<Integer> myq=new LinkedList<>();
         for(int i=0;i<numCourses;i++){
-            if(inDegree[i]==0){
-                q.offer(i);
-                visited[i]=true;
-                cnt++;
-            }
+            if(inDegree[i]==0)  myq.offer(i);
         }
-        while(!q.isEmpty()){
-            int u=q.poll();
-            for(int v:map.getOrDefault(u,new ArrayList<>())){
-                if(!visited[v]){
-                    inDegree[v]--;
-                    if(inDegree[v]==0){
-                        q.offer(v);
-                        visited[v]=true;
-                        cnt++;
-                    }
-                }
+        while(!myq.isEmpty()){
+            int u=myq.poll();
+            for(int neigh:adj.getOrDefault(u,new ArrayList<>())){
+                inDegree[neigh]--;
+                if(inDegree[neigh]==0)  myq.offer(neigh);
             }
-        }
-        return cnt==numCourses ? true : false;
+        } 
+        for(int num:inDegree)   if(num>0)   return false;
+        return true;
     }
 }
