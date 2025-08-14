@@ -3,7 +3,7 @@ class Solution {
         List<Integer> lst=new ArrayList<>();
         boolean[] primes=seive(right);
         for(int i=left;i<=right;i++){
-            if(primes[i])  lst.add(i);
+            if(isPrime(i))  lst.add(i);
         }
         System.out.print(lst);
         int[] ans={-1,-1};
@@ -19,7 +19,7 @@ class Solution {
     }
     private boolean isPrime(int num){
         if(num<=1)  return false;
-        for(int i=2;i<=num/2;i++)   if(num%i==0)    return false;
+        for(int i=2;i<=Math.sqrt(num);i++)   if(num%i==0)    return false;
         return true;
     }
     private boolean[] seive(int n){
