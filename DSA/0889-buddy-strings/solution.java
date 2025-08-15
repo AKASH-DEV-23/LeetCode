@@ -1,25 +1,18 @@
 class Solution {
     public boolean buddyStrings(String s, String goal) {
-        int cnt=0;
-        int[] freq1=new int[26];
+        if(s.length() != goal.length()) return false;
+        int[] freq=new int[26];
+        for(char ch:s.toCharArray())    freq[ch-'a']++;
         int[] freq2=new int[26];
-        for(char ch:s.toCharArray())    freq1[ch-'a']++;
-        for(char ch:goal.toCharArray())    freq2[ch-'a']++;
-        for(int i=0;i<26;i++){
-            if(freq1[i]!=freq2[i])  return false;
-        }
+        for(char ch:goal.toCharArray()) freq2[ch-'a']++;
+        for(int i=0;i<26;i++)   if(freq[i] != freq2[i]) return false;
+        boolean isEven=false;
+        for(int temp:freq)  if(temp>=2) isEven=true;
+        if(s.equals(goal) && isEven)    return true;
+        int maxDiff=0;
         for(int i=0;i<s.length();i++){
-            if(s.charAt(i) !=goal.charAt(i))    cnt++;
-            if(cnt>2)   return false;
+            if(s.charAt(i) != goal.charAt(i))   maxDiff++;
         }
-        if(cnt==2) return true;
-        if(cnt==0){
-            int[] arr=new int[26];
-            for(char ch:s.toCharArray())    arr[ch-'a']++;
-            for(int num:arr){
-                if(num>=2)  return true;
-            }
-        }
-        return false;
+        return maxDiff==2 ? true : false;
     }
 }
