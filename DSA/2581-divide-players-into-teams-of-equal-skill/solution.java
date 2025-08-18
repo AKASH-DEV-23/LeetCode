@@ -1,30 +1,14 @@
 class Solution {
     public long dividePlayers(int[] skill) {
-        HashMap<Integer, Integer> map= new HashMap<>();
-        int len=skill.length;
-        int totalTeam=len/2;
-        int tSum=0;
-        for(int num:skill)  tSum+=num;
-        if(tSum%totalTeam != 0)   return -1;
-        int teamSkill=tSum/totalTeam;
-        long chemistry=0;
-        boolean flag=true;
-        for(int num:skill){
-            int diff=teamSkill-num;
-            if(map.containsKey(diff)){
-                long team=diff*num;
-                chemistry+=team;
-                int value=map.get(diff);
-                if(value-1<1){
-                    map.remove(diff);
-                }else{
-                    map.put(diff,value-1);
-                }
-            }else{
-                map.put(num,map.getOrDefault(num,0)+1);
-            }
+        Arrays.sort(skill);
+        long chem=0;
+        int i=0;
+        int j=skill.length-1;
+        int sum=skill[i]+skill[j];
+        while(i<j){
+            if(skill[i]+skill[j]!=sum)  return -1;
+            chem+=skill[i++]*skill[j--];
         }
-        if(map.size()!=0)   return -1;
-        return chemistry;
+        return chem;
     }
 }
