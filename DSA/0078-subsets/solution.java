@@ -1,18 +1,17 @@
 class Solution {
-    List<List<Integer>> result=new ArrayList<>();
-    void solve(int[] nums, int i, List<Integer> temp){
-        if(i>=nums.length){
-            result.add(new ArrayList<>(temp));
+    public List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> ans=new ArrayList<>();
+        solve(0,nums,ans,new ArrayList<>());
+        return ans;
+    }
+    private void solve(int idx, int[] nums, List<List<Integer>> ans, List<Integer> temp){
+        if(idx==nums.length){
+            ans.add(new ArrayList<>(temp));
             return;
         }
-        temp.add(nums[i]);
-        solve(nums,i+1,temp);
-        temp.remove(temp.size()-1);
-        solve(nums,i+1,temp);
-    }
-    public List<List<Integer>> subsets(int[] nums) {
-        List<Integer> temp=new ArrayList<>();
-        solve(nums,0,temp);
-        return result;
+        temp.add(nums[idx]);  //do something
+        solve(idx+1,nums,ans,temp);  // explore 
+        temp.remove(temp.size()-1);  // undo
+        solve(idx+1,nums,ans,temp);  
     }
 }
