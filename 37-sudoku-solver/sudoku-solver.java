@@ -24,11 +24,7 @@ class Solution {
         for(int i=0;i<9;i++)    if(grid[i][col]==ch)    return false;
         int rowBox=3*(row/3);
         int colBox=3*(col/3);
-        for(int i=0;i<3;i++){
-            for(int j=0;j<3;j++){
-                if(grid[rowBox+i][colBox+j]==ch)    return false;
-            }
-        }
+        for(int i=0;i<3;i++)    for(int j=0;j<3;j++)    if(grid[rowBox+i][colBox+j]==ch)    return false;
         return true;
     }
 }
