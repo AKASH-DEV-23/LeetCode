@@ -7,10 +7,10 @@ class Solution {
             for(int j=0;j<9;j++){
                 if(board[i][j]=='.'){
                     for(char c='1';c<='9';c++){
-                        if(isValid(board,i,j,c)){
-                            board[i][j]=c;
-                            if(solve(board))  return true;
-                            board[i][j]='.';
+                        if(isValid(board,i,j,c)){  //CHECK VALIDITY
+                            board[i][j]=c;          // DO
+                            if(solve(board))  return true; //EXPLORE
+                            board[i][j]='.';  //UNDO
                         }
                     }
                     return false;
