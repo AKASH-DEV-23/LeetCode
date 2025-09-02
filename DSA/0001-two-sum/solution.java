@@ -6,6 +6,6 @@ class Solution {
             if(mymap.containsKey(diff)) return new int[]{mymap.get(diff),i};
             mymap.put(nums[i],i);
         }
-        return new int[]{0};
+        return new int[]{};
     }
 }
