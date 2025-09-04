@@ -1,10 +1,8 @@
 class Solution {
     public int findClosest(int x, int y, int z) {
-        int person1=Math.abs(z-x);
-        int person2=Math.abs(z-y);
-        if(person1==person2){
-            return 0;
-        }
-        return person1<person2 ? 1 : 2;
+        int reachX=Math.abs(z-x);
+        int reachY=Math.abs(z-y);
+        if(reachX==reachY)  return 0;
+        return reachX<reachY ? 1:2;
     }
 }
