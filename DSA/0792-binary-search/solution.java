@@ -1,13 +1,12 @@
 class Solution {
     public int search(int[] nums, int target) {
-        int st=0;
-        int end=nums.length-1;
-        while(st<=end){
-            int mid=st+(end-st)/2;
-            if(nums[mid]==target)   return mid;
-            if(target<nums[mid])    end=mid-1;
-            else if(target>nums[mid])   st=mid+1;
-        }
-        return -1;
+        return solve(0,nums.length-1,nums,target);
+    }
+    private int solve(int left, int right , int[] nums, int target){
+        if(left>right)  return -1;
+        int mid=left+(right-left)/2;
+        if(nums[mid]==target)   return mid;
+        if(target<nums[mid])   return solve(left,mid-1,nums,target);
+        else    return solve(mid+1,right,nums,target);
     }
 }
