@@ -3,8 +3,9 @@ class Solution {
         int n=triangle.size();
         for(int i=n-2; i>=0; i--){
             for(int j=0;j<=i;j++){
+                int currEle=triangle.get(i).get(j);
                 int minValue=Math.min(triangle.get(i+1).get(j),triangle.get(i+1).get(j+1));
-                triangle.get(i).set(j,triangle.get(i).get(j)+minValue);
+                triangle.get(i).set(j, currEle+minValue);
             }
         }
         return triangle.get(0).get(0);
