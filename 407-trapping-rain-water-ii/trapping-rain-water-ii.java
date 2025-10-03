@@ -3,14 +3,18 @@ class Solution {
         int m=heightMap.length;
         int n=heightMap[0].length;
         boolean[][] vis=new boolean[m][n];
-        Comparator<int[]> com=new Comparator<>(){
-            public int compare(int[] a, int[] b){
+        // Comparator<int[]> com=new Comparator<>(){
+        //     public int compare(int[] a, int[] b){
+        //         if(a[0]<b[0])   return -1;
+        //         else if(a[0]>b[0])  return 1;
+        //         else    return 0;
+        //     }
+        // };
+        PriorityQueue<int[]> pq=new PriorityQueue<>((int[] a, int[] b)->{
                 if(a[0]<b[0])   return -1;
                 else if(a[0]>b[0])  return 1;
                 else    return 0;
-            }
-        };
-        PriorityQueue<int[]> pq=new PriorityQueue<>(com);
+        }); 
         for(int i=0;i<m;i++){
             pq.offer(new int[]{heightMap[i][0],i,0});
             pq.offer(new int[]{heightMap[i][n-1],i,n-1});
