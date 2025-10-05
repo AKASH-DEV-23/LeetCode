@@ -1,20 +1,24 @@
 class Solution {
     public int[] topKFrequent(int[] nums, int k) {
-        HashMap<Integer,Integer> freq=new HashMap<>();
-        for(int num:nums)   freq.put(num,freq.getOrDefault(num,0)+1);
-        List<Map.Entry<Integer,Integer>> myList=new ArrayList<>(freq.entrySet());
+        Map<Integer,Integer> mp=new HashMap<>();
+        for(int num:nums){
+            mp.put(num,mp.getOrDefault(num,0)+1);
+        }
+        List<Map.Entry<Integer,Integer>> list=new ArrayList<>(mp.entrySet());
         Comparator<Map.Entry<Integer,Integer>> com=new Comparator<>(){
-            public int compare(Map.Entry<Integer,Integer> entry1, 
-                Map.Entry<Integer,Integer> entry2){
-                    if(entry1.getValue()>entry2.getValue())   return -1;
-                    else if(entry1.getValue()<entry2.getValue())    return 1;
-                    else return 0;
+            public int compare(Map.Entry<Integer,Integer> ent1,Map.Entry<Integer,Integer> ent2){
+                if(ent1.getValue()<ent2.getValue()) return 1;
+                else if(ent1.getValue()>ent2.getValue()) return -1;
+                else    return 0;
             }
         };
-        Collections.sort(myList,com); 
-        int[] ans=new int[k]; 
-        for(int i=0;i<k;i++){
-            ans[i]=myList.get(i).getKey();
+        Collections.sort(list,com);
+        int[] ans=new int[k];
+        int idx=0;
+        for(Map.Entry<Integer,Integer> ent:list){
+            ans[idx++]=ent.getKey();
+            k--;
+            if(k==0)    break;
         }
         return ans;
     }
