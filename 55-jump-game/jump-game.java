@@ -1,14 +1,18 @@
 class Solution {
-    Boolean[] dp=new Boolean[10001];
+    Boolean[] dp;
+    int n;
     public boolean canJump(int[] nums) {
+        n=nums.length;
+        dp=new Boolean[n];
         return solve(nums,0);
     }
-    private boolean solve(int[] nums, int idx){
-        if(idx==nums.length-1)  return true;
-        if(dp[idx]!=null)   return dp[idx];
-        for(int i=1;i<=nums[idx];i++){
-            if(solve(nums,idx+i)==true) return dp[idx]= true;
+    private boolean solve(int[] arr, int idx){
+        if(idx>=n-1)  return true;
+        if(dp[idx]!=null) return dp[idx];
+        for(int i=1;i<=arr[idx];i++){
+            if(solve(arr,idx+i))    return dp[idx]= true;
         }
-        return dp[idx] = false;
+        return dp[idx]=false;
     }
+
 }
