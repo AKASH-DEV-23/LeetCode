@@ -1,18 +1,17 @@
 class Solution {
-    Boolean[] dp;
-    int n;
     public boolean canJump(int[] nums) {
-        n=nums.length;
-        dp=new Boolean[n];
-        return solve(nums,0);
-    }
-    private boolean solve(int[] arr, int idx){
-        if(idx>=n-1)  return true;
-        if(dp[idx]!=null) return dp[idx];
-        for(int i=1;i<=arr[idx];i++){
-            if(solve(arr,idx+i))    return dp[idx]= true;
+        int low=0;
+        int high=0;
+        int n=nums.length;
+        while(high<n-1){
+            int farthest=high;
+            for(int idx=low;idx<=high;idx++){
+                farthest=Math.max(farthest,idx+nums[idx]);
+            }
+            if(farthest==high)  return false;
+            low=high+1;
+            high=farthest;
         }
-        return dp[idx]=false;
+        return true;
     }
-
 }
