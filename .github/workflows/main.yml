@@ -18,3 +18,4 @@ jobs:
           leetcode-session: ${{ secrets.LEETCODE_SESSION_ID }}
           destination-folder: DSA
           verbose: true
+          commit-header: "[Commit]"
