@@ -1,21 +1,17 @@
 class Solution {
     public int[] plusOne(int[] digits) {
-        StringBuilder sb=new StringBuilder();
-        int carry=1;
-        for(int i=digits.length-1;i>=0;i--){
-            int sum=digits[i];
-            sum+=carry;
-            carry=sum/10;
-            sb.append(sum%10);
+        int n=digits.length;
+        int[] ans=new int[digits[0]==9?n+1:n];
+        int idx=n-1;
+        while(idx>=0 && digits[idx]==9){
+            digits[idx]=0;
+            idx--;
         }
-        if(carry>0){
-            sb.append(carry);
+        if(idx<0){
+            ans[0]=1;
+            return ans;
         }
-        sb.reverse();
-        int[] ans=new int[sb.length()];
-        for(int i=0;i<sb.length();i++){
-            ans[i]=sb.charAt(i)-'0';
-        }
-        return ans;
+        digits[idx]=digits[idx]+1;
+        return digits;
     }
 }
