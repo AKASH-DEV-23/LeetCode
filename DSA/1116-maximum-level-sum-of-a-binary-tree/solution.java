@@ -41,7 +41,5 @@ class Solution {
             currLvl++;
         }
         return lvl;
-
-        
     }
 }
