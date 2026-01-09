@@ -16,14 +16,17 @@
 class Solution {
     public TreeNode lcaDeepestLeaves(TreeNode root) {
         if(root==null)  return root;
-        int leftHeight=getHeight(root.left);
-        int rightHeight=getHeight(root.right);
-        if(leftHeight==rightHeight) return root;
-        if(leftHeight>rightHeight)  return lcaDeepestLeaves(root.left);
+        int leftH=getHeight(root.left);
+        int rightH=getHeight(root.right);
+        if(leftH==rightH)   return root;
+        if(leftH>rightH)    return lcaDeepestLeaves(root.left);
         else    return lcaDeepestLeaves(root.right);
     }
+
     private int getHeight(TreeNode root){
         if(root==null)  return 0;
-        return 1+Math.max(getHeight(root.left),getHeight(root.right));
+        int leftH=getHeight(root.left);
+        int rightH=getHeight(root.right);
+        return 1+Math.max(leftH,rightH);
     }
 }
