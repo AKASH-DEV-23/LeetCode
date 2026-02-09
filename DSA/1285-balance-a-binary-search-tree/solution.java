@@ -23,21 +23,22 @@ class Solution {
     }
 
     private void inorder(TreeNode root, ArrayList<Integer> list) {
-        if (root != null) {
-            inorder(root.left, list);
-            list.add(root.val);
-            inorder(root.right, list);
-        }
+        if (root == null)
+            return;
+        inorder(root.left, list);
+        list.add(root.val);
+        inorder(root.right, list);
     }
 
     private TreeNode balance(int l, int r, ArrayList<Integer> list) {
         if (l > r) {
             return null;
         }
-        int mid = (l + r) / 2;
+        int mid = l+(r-l)/2;
         TreeNode root = new TreeNode(list.get(mid));
         root.left = balance(l, mid - 1, list);
         root.right = balance(mid + 1, r, list);
         return root;
+
     }
 }
