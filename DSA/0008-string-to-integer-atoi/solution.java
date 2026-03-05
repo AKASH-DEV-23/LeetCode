@@ -1,34 +1,40 @@
 class Solution {
+
     public int myAtoi(String s) {
-        s = s.trim();
-        int n = s.length();
-        if (n == 0) {
-            return 0;
-        }
 
-        long ans = 0;
-        boolean isNegative = false;
         int i = 0;
+        int n = s.length();
 
-        if (i < n && (s.charAt(i) == '-' || s.charAt(i) == '+')) {
-            isNegative = s.charAt(i) == '-';
+        // skip spaces
+        while (i < n && s.charAt(i) == ' ') {
             i++;
         }
 
-        while (i < n && Character.isDigit(s.charAt(i))) {
-            int digit = s.charAt(i) - '0';
-            ans = ans * 10 + digit;
+        int sign = 1;
 
-            if (isNegative && -ans < Integer.MIN_VALUE) {
-                return Integer.MIN_VALUE;
-            } else if (!isNegative && ans > Integer.MAX_VALUE) {
-                return Integer.MAX_VALUE;
+        // check sign
+        if (i < n && (s.charAt(i) == '+' || s.charAt(i) == '-')) {
+            if (s.charAt(i) == '-') {
+                sign = -1;
             }
-
             i++;
         }
 
-        return isNegative ? (int) -ans : (int) ans;
+        return solve(s, i, 0, sign);
+    }
+
+    private int solve(String s, int i, long num, int sign) {
+
+        if (i >= s.length() || !Character.isDigit(s.charAt(i))) {
+            return (int)(sign * num);
+        }
+
+        num = num * 10 + (s.charAt(i) - '0');
+
+        // overflow check
+        if (sign * num > Integer.MAX_VALUE) return Integer.MAX_VALUE;
+        if (sign * num < Integer.MIN_VALUE) return Integer.MIN_VALUE;
+
+        return solve(s, i + 1, num, sign);
     }
 }
-
