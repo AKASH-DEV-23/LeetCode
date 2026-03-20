@@ -1,39 +1,44 @@
 class Solution {
     public int[][] minAbsDiff(int[][] grid, int k) {
-        int col=grid[0].length;
         int row=grid.length;
-        if(k>row || k>col)  return new int[0][0];
-        if(row==0)  return new int[0][0];
-        int[][] ans=new int[row-k+1][col-k+1];
-        for(int i=0;i<row-k+1;i++){
-            for(int j=0;j<col-k+1;j++){
-                List<Integer> list=helper(grid,i,j,k);
-                ans[i][j]=findMin(list);
+        int col=grid[0].length;
+        int rowi=row-k+1;
+        int colj=col-k+1;
+        int[][] ans=new int[rowi][colj];
+        int idxi=0;
+        int idxj=0;
+        for(int i=0;i<row;i++){
+            for(int j=0;j<col;j++){
+                if(i+k>row || j+k>col)    continue;
+                int minVal=findMinDiff(grid,i,j,k);
+                ans[idxi][idxj++]=minVal;
+                if(idxj==colj){
+                    idxi++;
+                    idxj=0;
+                }
             }
         }
+
         return ans;
-    } 
-    private List<Integer> helper(int[][] nums, int row, int col, int k){
-        List<Integer> list=new ArrayList<>();
-        for(int i=row;i<row+k;i++){
-            for(int j=col;j<col+k;j++){
-                list.add(nums[i][j]);
-            }
-        }
-        return list;
     }
-    private int findMin(List<Integer> list){
-        Collections.sort(list);
-        if(list.isEmpty())  return 0;
-        if(list.size()<2)  return 0;
-        int mini=Integer.MAX_VALUE;
-        for(int i=1;i<list.size();i++){
-            int p=list.get(i-1);
-            int c=list.get(i);
-            if(c!=p){
-                mini=Math.min(mini,c-p);
+
+    private int findMinDiff(int[][] grid, int i, int j, int k){
+        List<Integer> list=new ArrayList<>();
+        for(int m=i;m<i+k;m++){
+            for(int n=j;n<j+k;n++){
+                list.add(grid[m][n]);
             }
         }
-        return mini==Integer.MAX_VALUE ? 0:mini;
-    } 
+
+        Collections.sort(list);
+        int minVal=Integer.MAX_VALUE;
+        for(i=1;i<list.size();i++){
+            int prev=list.get(i-1);
+            int curr=list.get(i);
+            if(prev!=curr){
+                minVal=Math.min(minVal,Math.abs(curr-prev));
+            }
+        }
+        return minVal==Integer.MAX_VALUE ? 0 : minVal;
+    }
 }
