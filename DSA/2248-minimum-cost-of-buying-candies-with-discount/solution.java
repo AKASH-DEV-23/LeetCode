@@ -1,18 +1,16 @@
 class Solution {
     public int minimumCost(int[] cost) {
-        PriorityQueue<Integer> pq=new PriorityQueue<>(Collections.reverseOrder());
-        for(int num:cost){
-            pq.offer(num);
+        Arrays.sort(cost);
+        int buyingCost=0;
+        int cnt=0;
+        for(int i=cost.length-1;i>=0;i--){
+            if(cnt==2){
+                cnt=0;
+                continue;
+            }
+            buyingCost+=cost[i];
+            cnt++;
         }
-        int total=0;
-        while(!pq.isEmpty() && pq.size()>2){
-            total+=pq.poll();
-            total+=pq.poll();
-            pq.poll();
-        }
-        while(!pq.isEmpty()){
-            total+=pq.poll();
-        }
-        return total;
+        return buyingCost;
     }
 }
