@@ -1,36 +1,22 @@
 class Solution {
     public int[][] merge(int[][] intervals) {
-        Comparator<int[]> com=new Comparator<>(){
-            public int compare(int[] a, int[] b){
-                if(a[0]<b[0]){
-                    return -1;
-                }else if(a[0]>b[0]){
-                    return 1;
-                }else{
-                    return 0;
-                }
-            }
-        };
-        Arrays.sort(intervals,com);
-        int st=intervals[0][0];
-        int end=intervals[0][1];
-        List<int[]> list=new ArrayList<>();
+        Arrays.sort(intervals,(a,b)->a[0]==b[0] ? Integer.compare(a[1],b[1]) : Integer.compare(a[0],b[0]));
+
+        // System.out.println(Arrays.deepToString(intervals));
+        List<int[]> mergeList=new ArrayList<>();
+        
+        int[] prev=intervals[0];
+
         for(int i=1;i<intervals.length;i++){
-            if(intervals[i][0]<=end){
-                end=Math.max(end,intervals[i][1]);
+            int[] current=intervals[i];
+            if(prev[1]>=current[0]){
+                prev[1]=Math.max(prev[1],current[1]);
             }else{
-                list.add(new int[]{st,end});
-                st=intervals[i][0];
-                end=intervals[i][1];
+                mergeList.add(prev);
+                prev=current;
             }
         }
-        list.add(new int[]{st,end});
-        int idx=0;
-        int[][] ans=new int[list.size()][2];
-        for(int[] temp:list){
-            ans[idx][0]=temp[0];
-            ans[idx++][1]=temp[1];
-        }
-        return ans;
+        mergeList.add(prev);
+        return mergeList.toArray(new int[mergeList.size()][]);
     }
 }
