@@ -1,21 +1,24 @@
 class Solution {
     public int countSubstrings(String s) {
-        int cntPalindrome=0;
+        int count=0;
+        
         for(int i=0;i<s.length();i++){
-            for(int j=i;j<s.length();j++)
-                if(isPalindrome(s,i,j)) cntPalindrome++;
+            count+=expandAroundCenter(s,i,i);
+            count+=expandAroundCenter(s,i,i+1);
         }
-        return cntPalindrome;
+
+        return count;
     }
-    private boolean isPalindrome(String mystr, int left, int right){
-        while(left<=right){
-            if(mystr.charAt(left)==mystr.charAt(right)){ 
-                left++;
-                right--;
-            }else{
-                return false;
-            }
+
+    private int expandAroundCenter(String s, int left, int right){
+        int count=0;
+
+        while(left>=0 && right<s.length() && s.charAt(left)==s.charAt(right)){
+            left--;
+            right++;
+            count++;
         }
-        return true;
+
+        return count;
     }
 }
