@@ -1,22 +1,24 @@
 class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
-        Map<String,List<String>> mp=new HashMap<>();
-        for(String s:strs){
-            String key=sorted(s);
-            if(!mp.containsKey(key)){
-                mp.put(key,new ArrayList<>());
+        Map<String,List<String>> anagramMap=new HashMap<>();
+
+        for(String word:strs){
+            
+            int[] frequencyOfWord=new int[26];
+            for(char currentChar:word.toCharArray()){
+                frequencyOfWord[currentChar-'a']++;
             }
-            mp.get(key).add(s);
+
+            StringBuilder sb=new StringBuilder();
+            for(int count:frequencyOfWord){
+                sb.append(count);
+                sb.append("#");
+            }
+            String key=sb.toString();
+
+            anagramMap.computeIfAbsent(key,k->new ArrayList<>()).add(word);
         }
-        List<List<String>> ans=new ArrayList<>();
-        for(Map.Entry<String,List<String>> entry:mp.entrySet()){
-            ans.add(entry.getValue());
-        }
-        return ans;
-    }
-    private String sorted(String s){
-        char[] arr=s.toCharArray();
-        Arrays.sort(arr);
-        return new String(arr);
+
+        return new ArrayList<>(anagramMap.values());
     }
 }
