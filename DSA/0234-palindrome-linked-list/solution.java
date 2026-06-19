@@ -10,29 +10,54 @@
  */
 class Solution {
     public boolean isPalindrome(ListNode head) {
-        ListNode dummy=new ListNode(-1);
-        ListNode temp=head;
-        ListNode dummy1=dummy;
-        while(temp!=null){
-            dummy1.next=new ListNode(temp.val);
-            temp=temp.next;
-            dummy1=dummy1.next;
+
+        if(head==null || head.next==null)   return true;
+        
+        ListNode startNode=head;
+
+        ListNode middleNode=findMiddleNode(head);
+
+        ditachList(head,middleNode);
+
+        ListNode lastNode=reverseList(middleNode);
+
+
+        while(startNode !=null && lastNode!=null){
+            if(startNode.val!=lastNode.val)   return false;
+            startNode=startNode.next;
+            lastNode=lastNode.next;
         }
-        dummy=dummy.next;
-        head=reverse(head);
-        while(dummy!=null && head!=null){
-            if(dummy.val!=head.val) return false;
-            dummy=dummy.next;
-            head=head.next;
-        }
+
         return true;
     }
-    private ListNode reverse(ListNode head){
+
+    private ListNode findMiddleNode(ListNode head){
+        ListNode slow=head;
+        ListNode fast=head;
+
+        while(fast!=null && fast.next!=null){
+            slow=slow.next;
+            fast=fast.next.next;
+        }
+
+        return slow;
+    }
+
+    private ListNode reverseList(ListNode head){
         if(head==null || head.next==null)   return head;
-        ListNode ans=reverse(head.next);
-        ListNode temp=head.next;
-        temp.next=head;
+
+        ListNode lastNode=reverseList(head.next);
+        head.next.next=head;
         head.next=null;
-        return ans; 
+
+        return lastNode;
+    }
+
+    private void ditachList(ListNode head, ListNode middleNode){
+        ListNode startNode=head;
+        while(startNode.next!=middleNode){
+            startNode=startNode.next;
+        }
+        startNode.next=null;
     }
 }
