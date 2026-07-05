@@ -1,4 +1,4 @@
-name: Sync Leetcode
+name: Sync Leetcode concurrency
 
 on:
   workflow_dispatch:
