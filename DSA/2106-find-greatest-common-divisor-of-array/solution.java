@@ -1,11 +1,17 @@
 class Solution {
     public int findGCD(int[] nums) {
-        Arrays.sort(nums);
-        int num1=nums[0];
-        int num2=nums[nums.length-1];
-        for(int i=Math.max(num1,num2);i>=1;i--){
-            if(num2%i==0 && num1%i==0)  return i;
+        if(nums==null || nums.length==0)    return 0;
+        int a=nums[0];
+        int b=nums[0];
+        for(int num:nums){
+            if(num<a)   a=num;
+            if(num>b)   b=num;
         }
-        return 0;
+        while(b!=0){
+            int temp=a%b;
+            a=b;
+            b=temp;
+        }
+        return a;
     }
 }
