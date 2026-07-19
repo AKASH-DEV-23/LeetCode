@@ -1,33 +1,24 @@
 class Solution {
     public String smallestSubsequence(String s) {
-        int[] lastIdx=new int[26];
+        int[] lastIndex=new int[26];
         for(int i=0;i<s.length();i++){
-            char ch=s.charAt(i);
-            int idx=ch-'a';
-            lastIdx[idx]=i;
+            lastIndex[s.charAt(i)-'a']=i;
         }
-
-        boolean[] present=new boolean[26];
-
+        boolean[] visited=new boolean[26];
         Stack<Character> st=new Stack<>();
         for(int i=0;i<s.length();i++){
             char ch=s.charAt(i);
-            int idx=ch-'a';
-            if(present[idx]==false){
-                while(st.size()>0 && st.peek()>ch && lastIdx[st.peek()-'a']>i){
-                    present[st.peek()-'a']=false;
-                    st.pop();
-                }
+            if(visited[ch-'a']) continue;
+            while(!st.isEmpty() && st.peek()>ch && lastIndex[st.peek()-'a']>i){
+                visited[st.pop()-'a']=false;
+            }  
+            if(!visited[ch-'a']){
                 st.push(ch);
-                present[idx]=true;
-            }
+                visited[ch-'a']=true;
+            } 
         }
-
-        StringBuilder sb=new StringBuilder("");
-
-        while(!st.isEmpty()){
-            sb.append(st.pop());
-        }
-        return sb.reverse().toString();
+        StringBuilder sb=new StringBuilder();
+        for(char ch:st) sb.append(ch);
+        return sb.toString();
     }
 }
