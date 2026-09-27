@@ -1,42 +1,34 @@
-<p>You are given an integer <code>n</code>.</p>
+# Count Commas in Range
 
-<p>Return the <strong>total</strong> number of commas used when writing all integers from <code>[1, n]</code> (inclusive) in <strong>standard</strong> number formatting.</p>
+You are given an integer `n`.
 
-<p>In <strong>standard</strong> formatting:</p>
+Return the **total** number of commas used when writing all integers from `[1, n]` (inclusive) in **standard** number formatting.
 
-<ul>
-	<li>A comma is inserted after <strong>every three</strong> digits from the right.</li>
-	<li>Numbers with <strong>fewer</strong> than 4 digits contain no commas.</li>
-</ul>
+In **standard** formatting:
 
-<p>&nbsp;</p>
-<p><strong class="example">Example 1:</strong></p>
+*   A comma is inserted after **every three** digits from the right.
+*   Numbers with **fewer** than 4 digits contain no commas.
 
-<div class="example-block">
-<p><strong>Input:</strong> <span class="example-io">n = 1002</span></p>
+**Example 1:**
 
-<p><strong>Output:</strong> <span class="example-io">3</span></p>
+**Input:** n = 1002
 
-<p><strong>Explanation:</strong></p>
+**Output:** 3
 
-<p>The numbers <code>&quot;1,000&quot;</code>, <code>&quot;1,001&quot;</code>, and <code>&quot;1,002&quot;</code> each contain one comma, giving a total of 3.</p>
-</div>
+**Explanation:**
 
-<p><strong class="example">Example 2:</strong></p>
+The numbers `"1,000"`, `"1,001"`, and `"1,002"` each contain one comma, giving a total of 3.
 
-<div class="example-block">
-<p><strong>Input:</strong> <span class="example-io">n = 998</span></p>
+**Example 2:**
 
-<p><strong>Output:</strong> <span class="example-io">0</span></p>
+**Input:** n = 998
 
-<p><strong>Explanation:</strong></p>
+**Output:** 0
 
-<p>All numbers from 1 to 998 have fewer than four digits. Therefore, no commas are used.</p>
-</div>
+**Explanation:**
 
-<p>&nbsp;</p>
-<p><strong>Constraints:</strong></p>
+All numbers from 1 to 998 have fewer than four digits. Therefore, no commas are used.
 
-<ul>
-	<li><code>1 &lt;= n &lt;= 10<sup>5</sup></code></li>
-</ul>
+**Constraints:**
+
+*   `1 <= n <= 105`
