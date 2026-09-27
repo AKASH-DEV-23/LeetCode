@@ -1,31 +1,26 @@
 class Solution {
     public int findCircleNum(int[][] isConnected) {
-        int V=isConnected.length;
-        Map<Integer,List<Integer>> adj=new HashMap<>();
-        for(int i=0;i<V;i++){
-            for(int j=0;j<V;j++){
-                if( i!=j && isConnected[i][j]==1){
-                    if(!adj.containsKey(i)) adj.put(i,new ArrayList<>());
-                    adj.get(i).add(j);
+        int n = isConnected.length, count = 0;
+        boolean[] visited = new boolean[n];
+
+        for (int i = 0; i < n; i++) {
+            if (!visited[i]) {
+                count++;
+                java.util.ArrayDeque<Integer> q = new java.util.ArrayDeque<>();
+                q.offer(i);
+                visited[i] = true;
+
+                while (!q.isEmpty()) {
+                    int u = q.poll();
+                    for (int v = 0; v < n; v++) {
+                        if (isConnected[u][v] == 1 && !visited[v]) {
+                            visited[v] = true;
+                            q.offer(v);
+                        }
+                    }
                 }
             }
         }
-        boolean[] visited=new boolean[V];
-        int cnt=0;
-        for(int i=0;i<V;i++){
-            if(!visited[i]){
-                DFS(adj,visited,i);
-                cnt++;
-            }
-        } 
-        return cnt;
-    }
-    private void DFS(Map<Integer,List<Integer>> adj, boolean[] visited, int u){
-        visited[u]=true;
-        for(int v:adj.getOrDefault(u,new ArrayList<>())){
-            if(!visited[v]){
-                DFS(adj,visited,v);
-            }
-        }
+        return count;
     }
 }
